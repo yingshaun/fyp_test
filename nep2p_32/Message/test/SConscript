@@ -1,9 +1,0 @@
-Import("env")
-
-source = ['test.c']
-lib = File("../build/libmessage.a")
-
-env.Program('test', source, LIBS=[lib])
-#env.Program('test', "test.cpp", LIBS=[lib])
-
-env.Command("../release/message.py", "message.py", Copy("$TARGET", "$SOURCE"))
