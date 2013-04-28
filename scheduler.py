@@ -46,8 +46,9 @@ class scheduler(threading.Thread):
 	###############################################################################
 	def __del__(self):
 		#self.myLogger.logline(str(self.myCount))
-		for i in self.myCount.keys():
-                        self.myLogger.logline('({0}, {1}, {2})'.format(self.myCount[i][0], i, self.myCount[i][1]))
+		for tmp_remote in self.myCount.keys():
+			myCurCount = self.myCount[i]
+                        self.myLogger.logline('{0}; {1}; {2}'.format(tmp_remote, myCurCount[0], myCurCount[1]))
                 self.myLogger.logline('# End of logging: ' + time.ctime())
                 self.myLogger.close()
 	###############################################################################
@@ -122,7 +123,7 @@ class scheduler(threading.Thread):
 				elif curTime == myCurCount[0]:
 					self.myCount[tmp_remote] = (curTime, myCurCount[1] + len(pkts))
 				else:
-					self.myLogger.logline('({0}, {1}, {2})'.format(myCurCount[0], tmp_remote, myCurCount[1]))
+					self.myLogger.logline('{0}; {1}; {2}'.format(tmp_remote, myCurCount[0], myCurCount[1]))
 					self.myCount[tmp_remote] = (curTime, len(pkts))
 
 				#if curTime == self.myCount[0] and tmp_remote == self.myCount[1]:
