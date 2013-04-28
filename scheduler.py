@@ -47,7 +47,7 @@ class scheduler(threading.Thread):
 	def __del__(self):
 		#self.myLogger.logline(str(self.myCount))
 		for i in self.myCount.keys():
-                        self.myLogger.logline('({0}, {1}, {2})'.format(self.myCount[i][0], i, myCurCount[i][1]))
+                        self.myLogger.logline('({0}, {1}, {2})'.format(self.myCount[i][0], i, self.myCount[i][1]))
                 self.myLogger.logline('# End of logging: ' + time.ctime())
                 self.myLogger.close()
 	###############################################################################
