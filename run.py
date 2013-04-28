@@ -8,7 +8,7 @@ import threading, time, signal, sys
 def bye(signum, frame):
 	print '\nBye'
 	lib.modules.external_gateway.__del__()
-	lib.modules.schedular.__del__()
+	lib.modules.scheduler.__del__()
 	sys.exit()
 
 if __name__ == "__main__":
