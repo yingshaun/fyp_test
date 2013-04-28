@@ -46,7 +46,7 @@ class external_gateway(gateway.gateway):
 	def __del__(self):
 		#self.myLogger.logline(str(self.myCount))i
 		for tmp_remote in self.myCount.keys():
-			myCurCount = self.myCount[i]
+			myCurCount = self.myCount[tmp_remote]
 			self.myLogger.logline('{0}; {1}; {2}'.format(tmp_remote, myCurCount[0], myCurCount[1]))
 		self.myLogger.logline('# End of logging: ' + time.ctime())
 		self.myLogger.close()
