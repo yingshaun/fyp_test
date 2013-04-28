@@ -34,13 +34,22 @@ class external_gateway(gateway.gateway):
 		self.STOP_DECODER = conf['stop_decoder'] if 'stop_decoder' in conf else False
 		self.NO_PROCESS = conf['egw_noprocess'] if 'egw_noprocess' in conf else False
 
+		#############################################################################
 		self.myLogger = Logger('log/recv_' + str(time.time()))
+		self.myLogger = self.myLogger.logline('# Start of logging: ' + time.ctime())
 		self.myCount = dict()			#{(ip, asid): (timestamp, count)}
 		#self.myCount = (0, (u'0',0), 0)	# (timestamp, (ip, asid), count)
+		#############################################################################
 
+
+	#####################################################################################
 	def __del__(self):
-		self.myLogger.logline(str(self.myCount))
+		#self.myLogger.logline(str(self.myCount))i
+		for i in self.myCount.keys():
+			self.myLogger.logline('({0}, {1}, {2})'.format(self.myCount[i][0], i, myCurCount[i][1]))
+		self.myLogger = self.myLogger.logline('# End of logging: ' + time.ctime())
 		self.myLogger.close()
+	#####################################################################################
 
 	def process_pkt(self, pkt):
 		if self.NO_PROCESS:

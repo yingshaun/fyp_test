@@ -34,14 +34,23 @@ class scheduler(threading.Thread):
 		self.SLEEP_THRESHOLD = conf['scheduler_sleepthreshold'] if 'scheduler_sleepthreshold' in conf else 0
 		#self.FLOOD = conf['flood'] if 'flood' in conf else False
 		self.count = 0
-	
+
+		###############################################################################	
 		self.myLogger = Logger('log/snd_' + str(time.time()))
+		self.myLogger.logline('# Start of logging: ' + time.ctime())
 		#self.myCount = (0, (u'0', 0), 0)	# (timestamp, (ip, asid), count)
 		self.myCount = dict()			# {(ip, asid): (timestamp, count)}
+		###############################################################################
 
+
+	###############################################################################
 	def __del__(self):
-		self.myLogger.logline(str(self.myCount))
-		self.myLogger.close()
+		#self.myLogger.logline(str(self.myCount))
+		for i in self.myCount.keys():
+                        self.myLogger.logline('({0}, {1}, {2})'.format(self.myCount[i][0], i, myCurCount[i][1]))
+                self.myLogger = self.myLogger.logline('# End of logging: ' + time.ctime())
+                self.myLogger.close()
+	###############################################################################
 
 	def run(self):
 		myip = modules.ip.myip
