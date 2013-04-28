@@ -36,7 +36,7 @@ class external_gateway(gateway.gateway):
 
 		#############################################################################
 		self.myLogger = Logger('log/recv_' + str(time.time()))
-		self.myLogger = self.myLogger.logline('# Start of logging: ' + time.ctime())
+		self.myLogger.logline('# Start of logging: ' + time.ctime())
 		self.myCount = dict()			#{(ip, asid): (timestamp, count)}
 		#self.myCount = (0, (u'0',0), 0)	# (timestamp, (ip, asid), count)
 		#############################################################################
@@ -47,7 +47,7 @@ class external_gateway(gateway.gateway):
 		#self.myLogger.logline(str(self.myCount))i
 		for i in self.myCount.keys():
 			self.myLogger.logline('({0}, {1}, {2})'.format(self.myCount[i][0], i, myCurCount[i][1]))
-		self.myLogger = self.myLogger.logline('# End of logging: ' + time.ctime())
+		self.myLogger.logline('# End of logging: ' + time.ctime())
 		self.myLogger.close()
 	#####################################################################################
 
