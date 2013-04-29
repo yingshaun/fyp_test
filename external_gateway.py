@@ -90,8 +90,8 @@ class external_gateway(gateway.gateway):
 				#self.myLogger.logline(str(pkt))
 				#self.myLogger.logline('{0}, {1}, {2}'.format(time.time(), remote, len(str(pkt))))	
 				tmp_remote = remote
-				#curTime = float('%0.1f'%time.time())	# Precision: 0.01 seconds
-				curTime = int(time.time())	# Precision: 1 seconds
+				curTime = float('%0.1f'%time.time())	# Precision: 0.01 seconds
+				#curTime = int(time.time())	# Precision: 1 seconds
 				
 				myCurCount = self.myCount.get(tmp_remote)
                                 if myCurCount == None:

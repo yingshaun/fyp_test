@@ -114,8 +114,8 @@ class scheduler(threading.Thread):
 					#print len(str(ppp))
 					#self.myLogger.logline('{0}, {1}, {2}'.format(time.time(), (ip, send_pkt['src_asid']), len(str(ppp))))
 				tmp_remote = (ip, send_pkt['src_asid'])
-				#curTime = float('%0.1f'%time.time())	# Precision: 0.01 seconds
-				curTime = int(time.time())	# Precision: 1 seconds
+				curTime = float('%0.1f'%time.time())	# Precision: 0.01 seconds
+				#curTime = int(time.time())	# Precision: 1 seconds
 
 				myCurCount = self.myCount.get(tmp_remote)
 				if myCurCount == None:
