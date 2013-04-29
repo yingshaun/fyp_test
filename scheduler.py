@@ -48,7 +48,7 @@ class scheduler(threading.Thread):
 		#self.myLogger.logline(str(self.myCount))
 		for tmp_remote in self.myCount.keys():
 			myCurCount = self.myCount[tmp_remote]
-                        self.myLogger.logline('{0}; {1}; {2}'.format(tmp_remote, myCurCount[0], myCurCount[1]))
+                        self.myLogger.logline('{0}; {1}; {2};'.format(tmp_remote, myCurCount[0], myCurCount[1]))
                 self.myLogger.logline('# End of logging: ' + time.ctime())
                 self.myLogger.close()
 	###############################################################################
@@ -123,7 +123,7 @@ class scheduler(threading.Thread):
 				elif curTime == myCurCount[0]:
 					self.myCount[tmp_remote] = (curTime, myCurCount[1] + len(pkts))
 				else:
-					self.myLogger.logline('{0}; {1}; {2}'.format(tmp_remote, myCurCount[0], myCurCount[1]))
+					self.myLogger.logline('{0}; {1}; {2};'.format(tmp_remote, myCurCount[0], myCurCount[1]))
 					self.myCount[tmp_remote] = (curTime, len(pkts))
 
 				#if curTime == self.myCount[0] and tmp_remote == self.myCount[1]:

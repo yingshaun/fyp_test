@@ -47,7 +47,7 @@ class external_gateway(gateway.gateway):
 		#self.myLogger.logline(str(self.myCount))i
 		for tmp_remote in self.myCount.keys():
 			myCurCount = self.myCount[tmp_remote]
-			self.myLogger.logline('{0}; {1}; {2}'.format(tmp_remote, myCurCount[0], myCurCount[1]))
+			self.myLogger.logline('{0}; {1}; {2};'.format(tmp_remote, myCurCount[0], myCurCount[1]))
 		self.myLogger.logline('# End of logging: ' + time.ctime())
 		self.myLogger.close()
 	#####################################################################################
@@ -99,7 +99,7 @@ class external_gateway(gateway.gateway):
                                 elif curTime == myCurCount[0]:
                                         self.myCount[tmp_remote] = (curTime, myCurCount[1] + 1)
                                 else:
-                                        self.myLogger.logline('{0}; {1}; {2}'.format(tmp_remote, myCurCount[0], myCurCount[1]))
+                                        self.myLogger.logline('{0}; {1}; {2};'.format(tmp_remote, myCurCount[0], myCurCount[1]))
 					self.myCount[tmp_remote] = (curTime, 1)
  
 				'''
