@@ -37,8 +37,9 @@ class scheduler(threading.Thread):
 
 		###############################################################################	
 		myTime = time.gmtime()
-                self.myLogFileName = 'log/snd_' + '{0}_{1}_{2}-{3}-{4}'.format(myTime.tm_mon, myTime.tm_mday, myTime.tm_hour, myTime.tm_min, myTime.tm_sec)
-                self.myLogger = Logger(self.myLogFileName)
+                #self.myLogFileName = 'log/snd_' + '{0}_{1}_{2}-{3}-{4}'.format(myTime.tm_mon, myTime.tm_mday, myTime.tm_hour, myTime.tm_min, myTime.tm_sec)
+                self.myLogFileName = SND_LOG_FILE
+		self.myLogger = Logger(self.myLogFileName)
 
 		self.myLogger.logline('# Start of logging: ' + time.ctime())
 		#self.myCount = (0, (u'0', 0), 0)	# (timestamp, (ip, asid), count)
