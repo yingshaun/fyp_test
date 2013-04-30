@@ -8,7 +8,9 @@ import threading, time, signal, sys
 def bye(signum, frame):
 	print '\nBye'
 	lib.modules.external_gateway.__del__()
+	print 'Rcv Log File: {0}'.format(lib.modules.external_gateway.myLogFileName)
 	lib.modules.scheduler.__del__()
+	print 'Snd Log File: {0}'.format(lib.modules.scheduler.myLogFileName)
 	sys.exit()
 
 if __name__ == "__main__":
