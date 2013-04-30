@@ -5,7 +5,7 @@ try:
 	client_config = json.loads(open('config.json', 'r').read())
 except:
 	client_config = {}
-
+	
 RCV_LOG_FILE = client_config['rcv_log_file'].encode() if 'rcv_log_file' in client_config else 'log/default/rcv.log'
 SND_LOG_FILE = client_config['snd_log_file'].encode() if 'snd_log_file' in client_config else 'log/default/snd.log'
 STAT_LOG_FILE = client_config['stat_log_file'].encode() if 'stat_log_file' in client_config else 'log/default/stat.log'

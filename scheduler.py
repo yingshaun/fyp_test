@@ -6,8 +6,8 @@ from util.config import *
 from util.message import *
 #from util.node_list import NodeList
 from util.singleton import Singleton
-from util.logger import Logger
-#import bintrees
+from util.logger import *
+#import
 import threading
 import modules
 from heapq import heappush, heappop, heapify
