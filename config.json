@@ -1,6 +1,7 @@
 {"wait_close":5,
 "asid":3000,
-"rcv_log_file":"log/sample/rcv_test.log",
-"snd_log_file":"log/sample/snd_test.log",
-"stat_log_file":"log/sample/stat_test.log",
-"app_worker_log_file":"log/sample/app_worker_test.log"}
+"log_file_base":"log/sample/",
+//"rcv_log_file":"log/sample/rcv_test.log",
+//"snd_log_file":"log/sample/snd_test.log",
+//"stat_log_file":"log/sample/stat_test.log",
+//"app_worker_log_file":"log/sample/app_worker_"}

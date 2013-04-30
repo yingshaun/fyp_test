@@ -6,10 +6,12 @@ try:
 except:
 	client_config = {}
 	
-RCV_LOG_FILE = client_config['rcv_log_file'].encode() if 'rcv_log_file' in client_config else 'log/default/rcv.log'
-SND_LOG_FILE = client_config['snd_log_file'].encode() if 'snd_log_file' in client_config else 'log/default/snd.log'
-STAT_LOG_FILE = client_config['stat_log_file'].encode() if 'stat_log_file' in client_config else 'log/default/stat.log'
-APP_WORKER_LOG_FILE = client_config['app_worker_log_file'].encode() if 'app_worker_log_file' in client_config else 'log/default/app_worker.log'
+#RCV_LOG_FILE = client_config['rcv_log_file'].encode() if 'rcv_log_file' in client_config else 'log/default/rcv.log'
+#SND_LOG_FILE = client_config['snd_log_file'].encode() if 'snd_log_file' in client_config else 'log/default/snd.log'
+#STAT_LOG_FILE = client_config['stat_log_file'].encode() if 'stat_log_file' in client_config else 'log/default/stat.log'
+#APP_WORKER_LOG_FILE = client_config['app_worker_log_file'].encode() if 'app_worker_log_file' in client_config else 'log/default/app_worker.log'
+LOG_FILE_BASE = client_config['log_file_base'] in 'log_file_base' in client_config else 'log/default/'
+
 
 class Logger:
 	def __init__(self, filepath, flags="w+"):
