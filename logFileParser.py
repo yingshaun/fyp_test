@@ -2,8 +2,14 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("inputFile", help = "relative path of the log file")
 parser.add_argument('-o', '--output', help = 'output json file (default: converted_log_file.json)')
+parser.add_argument('-p', '--precision', help = 'precision of timestamp (e.g. 0 (int), 0.1, 0.01)')
 args = parser.parse_args()
 
+def ff(timestamp):
+	if args.precision:
+		return float('%{0}f'.format(args.precision) % float(timestamp))
+	else:
+		return int(float(timestamp))	
 
 # Open the input log file
 try:
@@ -24,9 +30,9 @@ try:
 			line = line.split(';')
 			try:
 				# !! Order?
-				myDict[line[0]] = myDict[line[0]] + [[ int(line[1]) - start_time, int(line[2]) ]]
+				myDict[line[0]] = myDict[line[0]] + [[ ff(line[1]) - start_time, (line[2]) ]]
 			except KeyError:
-				start_time = int(line[1])
+				start_time = ff(line[1])
 				myDict[line[0]] = [ [ 0, int(line[2]) ] ]
 
 	print myDict
