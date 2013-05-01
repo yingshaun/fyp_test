@@ -228,6 +228,9 @@ class AppLogger(threading.Thread):
 	def run(self):
 		try:
 			print 'log start'
+
+			print '%s sent: %d, rcvd: %d, decoded: %d'%(time.ctime()[11:19], self.app.num_sent, self.app.num_received, self.app.decoder.getDecoded() is self.app.decoder else 0)
+
 			while not self.stop_log.is_set():
 				self.app.pktLogger.logline("%f %d %d %d"%(
 					time.time(),

@@ -68,7 +68,7 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 		else:
 			line = line.split(';')
 			index = int(ff((float(line[1]) - start_time) / step_size))
-			print float(line[1]), ff((float(line[1]) - start_time)/step_size), index, int(line[2])
+			#print float(line[1]), ff((float(line[1]) - start_time)/step_size), index, int(line[2])
 			myDict[line[0]][index] = int(line[2])
 
 	outputFile.write('[\n')
