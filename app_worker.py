@@ -229,9 +229,9 @@ class AppLogger(threading.Thread):
 		try:
 			print 'log start'
 
-			printf('%s sent: %d, rcvd: %d, decoded: %d'%(time.ctime()[11:19], self.app.num_sent, self.app.num_received, self.app.decoder.getDecoded() if self.app.decoder else 0), 'APP_WORKER', RED)
-
 			while not self.stop_log.is_set():
+				printf('%s sent: %d, rcvd: %d, decoded: %d'%(time.ctime()[11:19], self.app.num_sent, self.app.num_received, self.app.decoder.getDecoded() if self.app.decoder else 0), 'APP_WORKER', RED)
+
 				self.app.pktLogger.logline("%f %d %d %d"%(
 					time.time(),
 					self.app.num_sent,
