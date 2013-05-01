@@ -53,7 +53,7 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 	# Initialize each list
 	for key in myDict.keys():
 		myDict[key] = list()
-		myDict[key] = [0] * step_count
+		myDict[key] = [0] * (step_count + 1)
 
 	# Read each value
 	inputFile.seek(0, 0)
