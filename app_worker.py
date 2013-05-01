@@ -195,7 +195,7 @@ class app_worker(object):
 		except:
 			pass
 		#l = Logger('log/%d.log'%self.mysize)
-		l.Logger(APP_WORKER_LOG_FILE)
+		l = Logger(LOG_FILE_BASE + 'stat_%s.log'%self.myhash, 'a+')
 		l.logline('%f\n%f\n%d\n%d\n%d'%(
 			self.start_time,
 			self.end_time,
