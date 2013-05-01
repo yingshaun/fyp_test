@@ -6,7 +6,7 @@ from util.config import *
 from util.message import *
 from util.internal_message import *
 from util.common import printf, hashFunc
-from util.logger import Logger
+from util.logger import *
 #from util.cache import Cache, packetId
 #from base_worker import base_worker
 from util.bats import NIODecoder as Decoder
