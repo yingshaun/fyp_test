@@ -229,7 +229,7 @@ class AppLogger(threading.Thread):
 		try:
 			print 'log start'
 
-			print '%s sent: %d, rcvd: %d, decoded: %d'%(time.ctime()[11:19], self.app.num_sent, self.app.num_received, self.app.decoder.getDecoded() is self.app.decoder else 0)
+			printf('%s sent: %d, rcvd: %d, decoded: %d'%(time.ctime()[11:19], self.app.num_sent, self.app.num_received, self.app.decoder.getDecoded() if self.app.decoder else 0), 'APP_WORKER', RED)
 
 			while not self.stop_log.is_set():
 				self.app.pktLogger.logline("%f %d %d %d"%(
