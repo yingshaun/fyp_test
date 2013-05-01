@@ -195,7 +195,8 @@ class app_worker(object):
 		except:
 			pass
 		#l = Logger('log/%d.log'%self.mysize)
-		l = Logger(LOG_FILE_BASE + 'stat_%s.log'%self.myhash, 'w+')
+		#l = Logger(LOG_FILE_BASE + 'stat_%s.log'%self.myhash, 'w+')
+		l = Logger(LOG_FILE_BASE + 'gnl.json', 'w+')
 		l.logline('{\n')
 		l.logline('"start_time": %f,'%self.start_time)
 		l.logline('"end_time": %f,'%self.end_time)
@@ -203,6 +204,7 @@ class app_worker(object):
 		l.logline('"num_received": %d,'%self.num_received)
 		l.logline('"num_sent": %d,'%self.num_sent)
 		l.logline('"num_decoded": %d'%self.decoder.getDecoded())
+		l.logline('"hash_value": %s'%self.myhash)
 		l.logline('}\n')
 	#	l.logline('%f\n%f\n%d\n%d\n%d'%(
 	#		self.start_time,
