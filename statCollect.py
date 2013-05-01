@@ -108,7 +108,10 @@ stat['snd_info'] = json.loads(open(SND_JSON_FILE, 'r').read())
 readLogFile(RCV_LOG_FILE, RCV_JSON_FILE, 'w+')
 stat['rcv_info'] = json.loads(open(RCV_JSON_FILE, 'r').read())
 
-stat['general_info'] = readJsonFile(GNL_LOG_FILE)
+try:
+	stat['general_info'] = readJsonFile(GNL_LOG_FILE)
+except:
+	stat['general_info'] = {}
 
 outputFile.write(json.dumps(stat))
 outputFile.close()
