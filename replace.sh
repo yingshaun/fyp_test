@@ -7,3 +7,4 @@ cp ./config.json ../fyp_nep2p/
 cp ./app_worker.py ../fyp_nep2p/lib/
 cp ./statCollect.py ../fyp_nep2p
 cp ./cli.py ../fyp_nep2p
+cp ./ddM16m8r92TO.txt ../fyp_nep2p/
