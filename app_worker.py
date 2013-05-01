@@ -61,7 +61,7 @@ class app_worker(object):
 
 			#init the logger
 			#self.pktLogger = Logger('log/%s/%d/%s.log'%(
-			self.pktLogger = Logger(LOG_FILE_BASE + 'app_worker_%s.log')
+			self.pktLogger = Logger(LOG_FILE_BASE + 'app_worker_%s.log'%(
 			#	modules.ip.myip,
 			#	self.mysize,
 				self.myhash),'a+')
