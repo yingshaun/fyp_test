@@ -197,12 +197,12 @@ class app_worker(object):
 		#l = Logger('log/%d.log'%self.mysize)
 		l = Logger(LOG_FILE_BASE + 'stat_%s.log'%self.myhash, 'w+')
 		l.logline('{\n')
-		l.logline('"start_time":%f,\n'%self.start_time)
-		l.logline('"end_time":%f,\n'%self.end_time)
-		l.logline('"duration":%d,\n'%(self.end_time - self.start_time))
-		l.logline('"num_received":%d,\n'%self.num_received)
-		l.logline('"num_sent":%d,\n'%self.num_sent)
-		l.logline('"num_decoded":%d,\n'%self.decoder.getDecoded())
+		l.logline('"start_time": %f,'%self.start_time)
+		l.logline('"end_time": %f,'%self.end_time)
+		l.logline('"duration": %d,'%(self.end_time - self.start_time))
+		l.logline('"num_received": %d,'%self.num_received)
+		l.logline('"num_sent": %d,'%self.num_sent)
+		l.logline('"num_decoded": %d'%self.decoder.getDecoded())
 		l.logline('}\n')
 	#	l.logline('%f\n%f\n%d\n%d\n%d'%(
 	#		self.start_time,
