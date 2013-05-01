@@ -64,7 +64,7 @@ class app_worker(object):
 			self.pktLogger = Logger(LOG_FILE_BASE + 'app_worker_%s.log'%(
 			#	modules.ip.myip,
 			#	self.mysize,
-				self.myhash),'a+')
+				self.myhash),'w+')
 			print 'a'
 			self.logThread = AppLogger(self)
 			print 'b'
@@ -195,14 +195,23 @@ class app_worker(object):
 		except:
 			pass
 		#l = Logger('log/%d.log'%self.mysize)
-		l = Logger(LOG_FILE_BASE + 'stat_%s.log'%self.myhash, 'a+')
-		l.logline('%f\n%f\n%d\n%d\n%d'%(
-			self.start_time,
-			self.end_time,
-			self.num_received,
-			self.num_sent,
-			self.decoder.getDecoded(),
-		))
+		l = Logger(LOG_FILE_BASE + 'stat_%s.log'%self.myhash, 'w+')
+		l.logline('[\n')
+		l.logline('\t{\n\t\t"key": "start_time", \n\t\t"values":%s},\n'%self.start_time)
+		
+		l.logline('\t{\n\t\t"key": "end_time", \n\t\t"values":%s},\n'%self.end_time)
+		l.logline('\t{\n\t\t"key": "duration", \n\t\t"values":%s},\n'%(self.end_time - self.start_time))
+		l.logline('\t{\n\t\t"key": "num_received", \n\t\t"values":%s},\n'%self.num_received)
+		l.logline('\t{\n\t\t"key": "num_sent", \n\t\t"values":%s},\n'%self.num_sent)
+		l.logline('\t{\n\t\t"key": "num_decoded", \n\t\t"values":%s},\n'%self.decoder.getDecoded())
+		l.logline('\n]\n')
+	#	l.logline('%f\n%f\n%d\n%d\n%d'%(
+	#		self.start_time,
+	#		self.end_time,
+	#		self.num_received,
+	#		self.num_sent,
+	#		self.decoder.getDecoded(),
+	#	))
 		l.close()
 
 class AppLogger(threading.Thread):
