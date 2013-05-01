@@ -1,5 +1,5 @@
 {"wait_close": 5,
 "asid": 3000,
-"log_file_base":"log/",
+"log_file_base":"log/hello_world",
 "log_precision": 0.1
 }

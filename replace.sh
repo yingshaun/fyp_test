@@ -5,3 +5,5 @@ cp ./run.py ../fyp_nep2p
 cp ./logger.py ../fyp_nep2p/lib/util
 cp ./config.json ../fyp_nep2p/
 cp ./app_worker.py ../fyp_nep2p/lib/
+cp ./statCollect.py ../fyp_nep2p
+cp ./cli.py ../fyp_nep2p
