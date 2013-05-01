@@ -32,10 +32,13 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 	myDict = dict()		
 
 	# Determine the start and end time
-	line = inputFile.readline()
-	line = inputFile.readline().split(';')
-	start_time = ff(line[1])
+	start_time = None
 	end_time = None
+	line = inputFile.readline()
+	line = inputFile.readline()
+	if line != '' and line[0] != '#':
+		line = line.split(';')
+		start_time = ff(line[1])
 	step_size = ff(LOG_PRECISION)
 
 	inputFile.seek(0, 0)
@@ -48,7 +51,8 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 			if ff(line[1]) > end_time: end_time = ff(line[1])
 			if myDict.get(line[0]) == None:
 				myDict[line[0]] = True
-	step_count = int((end_time - start_time) / step_size) + 1
+	if start_time != None and end_time != None:
+		step_count = int((end_time - start_time) / step_size) + 1
 
 	# Initialize each list
 	for key in myDict.keys():
