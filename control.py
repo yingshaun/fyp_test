@@ -137,7 +137,7 @@ if __name__ == '__main__':
 				printf('Cannot kill service: Client(%d) is Alive'%c_pid,'INFO', YELLOW)
 				sleep(3)
 			else: 
-				call(['kill', '-9', s_pid])
+				call(['kill', '-9', str(s_pid)])
 				printf('Service is killed: %d'%s_pid,'INFO',GREEN)
 	if args.option == 'quit': # End both service and client process
 		try: info = json.loads(open('info.json','r').read())
