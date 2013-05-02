@@ -2,7 +2,6 @@ import gevent, sys
 import json
 from lib.util.common import hashFile, hashFunc
 from lib.appsocket import AppSocket
-from time import sleep
 
 if __name__ == "__main__":
 	nodes = json.loads(open("nodes.json").read())
@@ -24,7 +23,7 @@ if __name__ == "__main__":
 	if filepath:
 		#abc = raw_input('Press enter to start sending....')
 		print 'sending in 5 seconds'
-		sleep(10)
+		gevent.sleep(5)
 		print 'sendto...'
 		print app.sendfileto(nodes, filepath)
 	else:
@@ -33,7 +32,7 @@ if __name__ == "__main__":
 		print addrs, len(data), hashFunc(data)
 	print 'preparing to close socket...'
 	gevent.sleep(config['wait_close'])
-	gevent.sleep(10)
+	#gevent.sleep(10)
 	print 'closing..'
 	#app.close()
 	print 'closed'
