@@ -32,9 +32,9 @@ if __name__ == "__main__":
 	signal.signal(signal.SIGINT, bye)
 	signal.signal(signal.SIGTERM, bye)
 	# while threading.active_count() > 0:
-	if len(sys.argv)>1:
-		time.sleep(float(sys.argv[1]))
-	else:
-		while True:
-			time.sleep(100)
+	#if len(sys.argv)>1:
+	#	time.sleep(float(sys.argv[1]))
+	#else:
+	while True:
+		time.sleep(100)
 	#yappi.print_stats()
