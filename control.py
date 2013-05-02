@@ -124,7 +124,7 @@ if __name__ == '__main__':
 		if args.checkServiceFlag == 'True':
 			s_pid = info['service_pid']
 			if os.path.exists('/proc/%d'%s_pid):
-                        printf('Service is alive: %d'%s_pid, 'INFO', GREEN)
+                        	printf('Service is alive: %d'%s_pid, 'INFO', GREEN)
                 	else: printf('No such service: %d'%s_pid, 'INFO', YELLOW)
 		else:
                 	c_pid = info['client_pid']
