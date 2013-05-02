@@ -3,7 +3,7 @@ import json
 import argparse
 from subprocess import *
 from time import sleep
-import os
+import os, sys
 from urllib import urlretrieve 
 
 parser = argparse.ArgumentParser()
@@ -32,44 +32,44 @@ if __name__ == '__main__':
 		# ~/fyp/fyp_nep2p/lib/
 		url = github_url + 'external_gateway.py'
 		out = BASE + 'lib/external_gateway.py'
-		try: r = urlretrieve(url, out), printf('lib/external_gateway.py', 'Updated', GREEN)		
+		try: r = urlretrieve(url, out), printf('lib/external_gateway.py', 'Update', GREEN)		
 		except: printf('Failed to update: lib/external_gateway.py', 'Error', RED)
 
 		url = github_url + 'scheduler.py'
 		out = BASE + 'lib/scheduler.py'
-		try: r = urlretrieve(url, out), printf('lib/scheduler.py', 'Updated', GREEN)		
+		try: r = urlretrieve(url, out), printf('lib/scheduler.py', 'Update', GREEN)		
 		except: printf('Failed to update: lib/scheduler.py', 'Error', RED)	
 	 	
 		url = github_url + 'app_worker.py'
 		out = BASE + 'lib/app_worker.py'
-		try: r = urlretrieve(url, out), printf('lib/app_worker.py', 'Updated', GREEN)		
+		try: r = urlretrieve(url, out), printf('lib/app_worker.py', 'Update', GREEN)		
 		except: printf('Failed to update: lib/app_worker.py', 'Error', RED)
  
 		# ~/fyp/fyp_nep2p/lib/utl/
 		url = github_url + 'logger.py'
 		out = BASE + 'lib/util/logger.py'
-		try: r = urlretrieve(url, out), printf('lib/util/logger.py', 'Updated', GREEN)		
+		try: r = urlretrieve(url, out), printf('lib/util/logger.py', 'Update', GREEN)		
 		except: printf('Failed to update: lib/util/app_worker.py', 'Error', RED)
 
 		# ~/fyp/fyp_nep2p/
 		url = github_url + 'statCollect.py'
 		out = BASE + 'statCollect.py'
-		try: r = urlretrieve(url, out), printf('statCollect.py', 'Updated', GREEN)		
+		try: r = urlretrieve(url, out), printf('statCollect.py', 'Update', GREEN)		
 		except: printf('Failed to update: statCollectr.py', 'Error', RED)
 
 		url = github_url + 'run.py'
 		out = BASE + 'run.py'
-		try: r = urlretrieve(url, out), printf('run.py', 'Updated', GREEN)		
+		try: r = urlretrieve(url, out), printf('run.py', 'Update', GREEN)		
 		except: printf('Failed to update: run.py', 'Error', RED)
 
 		url = github_url + 'cli.py'
 		out = BASE + 'cli.py'
-		try: r = urlretrieve(url, out), printf('cli.py', 'Updated', GREEN)		
+		try: r = urlretrieve(url, out), printf('cli.py', 'Update', GREEN)		
 		except: printf('Failed to update: cli.py', 'Error', RED)
 
 		url = github_url + 'ddM16m8r92TO.txt'
 		out = BASE + 'ddM16m8r92TO.txt'
-		try: r = urlretrieve(url, out), printf('ddM16m8r92TO.txt', 'Updated', GREEN)		
+		try: r = urlretrieve(url, out), printf('ddM16m8r92TO.txt', 'Update', GREEN)		
 		except: printf('Failed to update: ddM16m8r92TO.txt', 'Error', RED)
 
 
@@ -85,16 +85,23 @@ if __name__ == '__main__':
 			printf('Call Failed!', 'ERROR', RED)
 		f.close()
 	if args.option == 'start':
-		s_p = Popen(['python','run.py'])
-		c_p = Popen(['python','cli.py'])
-		d = dict()
-		d['service_pid'] = s_p.pid
-		d['client_pid'] = c_p.pid
-		f = open('info.json', 'w+')
-		f.write(json.dumps(d))
-		f.close()
-		printf('Service started: %d'%s_p.pid, 'INFO', GREEN)
-		printf('Client  started: %d'%c_p.pid, 'INFO', GREEN)
+		try: 
+			with open(os.devnull, "w") as f: 
+				s_p = Popen(['python','run.py'], stdout=f)
+				printf('Service started: %d'%s_p.pid, 'INFO', GREEN)
+				sleep(1)
+				c_p = Popen(['python','cli.py'], stdout=f)
+				printf('Client  started: %d'%c_p.pid, 'INFO', GREEN)
+			d = dict()
+			d['service_pid'] = s_p.pid
+			d['client_pid'] = c_p.pid
+			info_file = open('info.json', 'w+')
+			info_file.write(json.dumps(d))
+			info_file.close()
+		except:
+			printf('Failed!', 'ERROR', RED)
+		sys.exit(True)
+
 	if args.option == 'status':
 		try: info = json.loads(open('info.json','r').read())	
 		except: printf('No info.json', 'ERROR', RED)
