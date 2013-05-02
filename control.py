@@ -90,7 +90,7 @@ if __name__ == '__main__':
 	if args.option == 'start':
 		f = open(os.devnull, "w")
 		try:
-			s_p = Popen(['python','run.py', '&'], stdout=f)
+			s_p = Popen(['python','run.py'])
 			printf('Service started: %d'%s_p.pid, 'INFO', GREEN)
 		except:
 			printf('Failed to start Service!', 'ERROR', RED)
@@ -100,10 +100,10 @@ if __name__ == '__main__':
 
 		try:
 			if args.dataFile:
-				c_p = Popen(['python','cli.py', args.dataFile, '&'], stdout=f)
+				c_p = Popen(['python','cli.py', args.dataFile])
 				printf('Sender  started: %d'%c_p.pid, 'INFO', GREEN)
 			else:
-				c_p = Popen(['python','cli.py', '&'], stdout=f)
+				c_p = Popen(['python','cli.py'])
 				printf('Receiver  started: %d'%c_p.pid, 'INFO', GREEN)
 		except Exception as e:
 			printf('Failed to start clients!', 'ERROR', RED)
