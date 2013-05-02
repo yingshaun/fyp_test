@@ -30,6 +30,7 @@ if __name__ == "__main__":
 	print '1.0a13 11:08'
 	
 	signal.signal(signal.SIGINT, bye)
+	signal.signal(signal.SIGTERM, bye)
 	# while threading.active_count() > 0:
 	if len(sys.argv)>1:
 		time.sleep(float(sys.argv[1]))
