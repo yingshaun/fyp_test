@@ -9,6 +9,7 @@ from urllib import urlretrieve
 parser = argparse.ArgumentParser()
 parser.add_argument('option', choices = ['update', 'start', 'status', 'end', 'quit', 'stat'], help = "")
 parser.add_argument('-f', '--dataFile', help = 'sender: file to send')
+parser.add_argument('-s', '--checkServiceFlag', choices = ['True', 'False'], help = 'Check service status; ')
 args = parser.parse_args()
 
 NONE   = "\033[m"
@@ -119,14 +120,17 @@ if __name__ == '__main__':
 	if args.option == 'status':
 		try: info = json.loads(open('info.json','r').read())	
 		except: printf('No info.json', 'ERROR', RED)
-		s_pid = info['service_pid']
-                c_pid = info['client_pid']
-		if os.path.exists('/proc/%d'%s_pid):
-			printf('Service is alive: %d'%s_pid, 'INFO', GREEN)
-		else: printf('No such service: %d'%s_pid, 'INFO', YELLOW)
-		if os.path.exists('/proc/%d'%c_pid):
-                        printf('Client  is alive: %d'%c_pid, 'INFO', GREEN)
-		else: printf('No such client: %d'%c_pid, 'INFO', YELLOW)
+
+		if args.checkServiceFlag == 'True':
+			s_pid = info['service_pid']
+			if os.path.exists('/proc/%d'%s_pid):
+                        printf('Service is alive: %d'%s_pid, 'INFO', GREEN)
+                	else: printf('No such service: %d'%s_pid, 'INFO', YELLOW)
+		else:
+                	c_pid = info['client_pid']
+			if os.path.exists('/proc/%d'%c_pid):
+                        	printf('Client  is alive: %d'%c_pid, 'INFO', GREEN)
+			else: printf('No such client: %d'%c_pid, 'INFO', YELLOW)
 	if args.option == 'end': # End the service when client is closed	
 		try: info = json.loads(open('info.json','r').read())
                 except: printf('No info.json', 'ERROR', RED)
