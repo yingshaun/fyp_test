@@ -26,12 +26,14 @@ if __name__ == '__main__':
 	if args.option == 'update':
 		github_url = 'https://raw.github.com/xuancaishaun/fyp_test/master/'
 		f = open(os.devnull,'w')
-		BASE = '~/fyp/fyp_nep2p/'		
+		#BASE = '~/fyp/fyp_nep2p/'
+		BASE = '' # relative path
 
 		# ~/fyp/fyp_nep2p/lib/
 		url = github_url + 'external_gateway.py'
-		call(['wget','-O', BASE + 'lib/external_gateway.py', url], stdout=f)
-			
+		r = call(['wget','-O', BASE + 'lib/external_gateway.py', url], stdout=f)
+		if r == 0: printf('Updated external_gateway.py','INFO',GREEN)		
+	
 		url = github_url + 'scheduler.py'
 		call(['wget','-O', BASE + 'lib/scheduler.py', url], stdout=f)
 	 	
