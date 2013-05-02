@@ -94,7 +94,7 @@ if __name__ == '__main__':
 			printf('Service started: %d'%s_p.pid, 'INFO', GREEN)
 		except:
 			printf('Failed to start Service!', 'ERROR', RED)
-			sys.exit(False)
+			sys.exit(1)
 
 		sleep(1)
 
@@ -108,7 +108,7 @@ if __name__ == '__main__':
 		except Exception as e:
 			printf('Failed to start clients!', 'ERROR', RED)
 			print e.message
-			sys.exit(False)
+			sys.exit(1)
 
 		d = dict()
 		d['service_pid'] = s_p.pid
@@ -116,7 +116,7 @@ if __name__ == '__main__':
 		info_file = open('info.json', 'w+')
 		info_file.write(json.dumps(d))
 		info_file.close()
-		sys.exit(True)
+		sys.exit(0)
 
 	if args.option == 'status':
 		try: info = json.loads(open('info.json','r').read())	
