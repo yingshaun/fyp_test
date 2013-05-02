@@ -88,9 +88,9 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 		if i < (len(keys) - 1): outputFile.write(',\n')
 	outputFile.write('\n]\n')
 
-
 	inputFile.close()
 	outputFile.close()
+	return myDict
 	
 
 def readJsonFile(in_path):
@@ -102,16 +102,18 @@ def readJsonFile(in_path):
 stat = dict()
 outputFile = open(OUT_FILE_PATH, 'w+')
 
-readLogFile(SND_LOG_FILE, SND_JSON_FILE, 'w+')
+mySndDict = readLogFile(SND_LOG_FILE, SND_JSON_FILE, 'w+')
 stat['snd_info'] = json.loads(open(SND_JSON_FILE, 'r').read())
 
-readLogFile(RCV_LOG_FILE, RCV_JSON_FILE, 'w+')
+myRcvDict = readLogFile(RCV_LOG_FILE, RCV_JSON_FILE, 'w+')
 stat['rcv_info'] = json.loads(open(RCV_JSON_FILE, 'r').read())
 
 try:
 	stat['general_info'] = readJsonFile(GNL_LOG_FILE)
 except:
 	stat['general_info'] = {}
+
+
 
 outputFile.write(json.dumps(stat))
 outputFile.close()
