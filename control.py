@@ -4,6 +4,7 @@ import argparse
 from subprocess import *
 from time import sleep
 import os
+from urllib import urlretrieve 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('option', choices = ['update', 'start', 'status', 'end', 'quit', 'stat'], help = "")
@@ -25,39 +26,52 @@ def printf(msg, mark, color=NONE):
 if __name__ == '__main__':
 	if args.option == 'update':
 		github_url = 'https://raw.github.com/xuancaishaun/fyp_test/master/'
-		f = open(os.devnull,'w')
 		#BASE = '~/fyp/fyp_nep2p/'
 		BASE = '' # relative path
 
 		# ~/fyp/fyp_nep2p/lib/
 		url = github_url + 'external_gateway.py'
-		r = call(['wget','-O', BASE + 'lib/external_gateway.py', url], stdout=f)
-		if r == 0: printf('Updated external_gateway.py','INFO',GREEN)		
-	
+		out = BASE + 'lib/external_gateway.py'
+		try: r = urlretrieve(url, out), printf('lib/external_gateway.py', 'Updated', GREEN)		
+		except: printf('Failed to update: lib/external_gateway.py', 'Error', RED)
+
 		url = github_url + 'scheduler.py'
-		call(['wget','-O', BASE + 'lib/scheduler.py', url], stdout=f)
+		out = BASE + 'lib/scheduler.py'
+		try: r = urlretrieve(url, out), printf('lib/scheduler.py', 'Updated', GREEN)		
+		except: printf('Failed to update: lib/scheduler.py', 'Error', RED)	
 	 	
 		url = github_url + 'app_worker.py'
-                call(['wget','-O', BASE + 'lib/app_worker.py', url], stdout=f)
+		out = BASE + 'lib/app_worker.py'
+		try: r = urlretrieve(url, out), printf('lib/app_worker.py', 'Updated', GREEN)		
+		except: printf('Failed to update: lib/app_worker.py', 'Error', RED)
  
 		# ~/fyp/fyp_nep2p/lib/utl/
 		url = github_url + 'logger.py'
-                call(['wget','-O', BASE + 'lib/util/logger.py', url], stdout=f)
+		out = BASE + 'lib/util/logger.py'
+		try: r = urlretrieve(url, out), printf('lib/util/logger.py', 'Updated', GREEN)		
+		except: printf('Failed to update: lib/util/app_worker.py', 'Error', RED)
 
 		# ~/fyp/fyp_nep2p/
 		url = github_url + 'statCollect.py'
-                call(['wget','-O', BASE + 'statCollect.py', url], stdout=f)
+		out = BASE + 'statCollect.py'
+		try: r = urlretrieve(url, out), printf('statCollect.py', 'Updated', GREEN)		
+		except: printf('Failed to update: statCollectr.py', 'Error', RED)
 
 		url = github_url + 'run.py'
-                call(['wget','-O', BASE + 'run.py', url], stdout=f)
+		out = BASE + 'run.py'
+		try: r = urlretrieve(url, out), printf('run.py', 'Updated', GREEN)		
+		except: printf('Failed to update: run.py', 'Error', RED)
 
 		url = github_url + 'cli.py'
-                call(['wget','-O', BASE + 'cli.py', url], stdout=f)
+		out = BASE + 'cli.py'
+		try: r = urlretrieve(url, out), printf('cli.py', 'Updated', GREEN)		
+		except: printf('Failed to update: cli.py', 'Error', RED)
 
 		url = github_url + 'ddM16m8r92TO.txt'
-                call(['wget','-O', BASE + 'ddM16m8r92TO.txt', url], stdout=f)
+		out = BASE + 'ddM16m8r92TO.txt'
+		try: r = urlretrieve(url, out), printf('ddM16m8r92TO.txt', 'Updated', GREEN)		
+		except: printf('Failed to update: ddM16m8r92TO.txt', 'Error', RED)
 
-		f.close()
 
 	if args.option == 'stat':
 		printf('Executing statCollect.py', 'INFO', YELLOW)
