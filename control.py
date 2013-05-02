@@ -126,7 +126,7 @@ if __name__ == '__main__':
 		else: printf('No such service: %d'%s_pid, 'INFO', YELLOW)
 		if os.path.exists('/proc/%d'%c_pid):
                         printf('Client  is alive: %d'%c_pid, 'INFO', GREEN)
-		else: printf('No such service: %d'%c_pid, 'INFO', YELLOW)
+		else: printf('No such client: %d'%c_pid, 'INFO', YELLOW)
 	if args.option == 'end': # End the service when client is closed	
 		try: info = json.loads(open('info.json','r').read())
                 except: printf('No info.json', 'ERROR', RED)
@@ -150,5 +150,5 @@ if __name__ == '__main__':
 		else: printf('Failed: no such service - %d'%s_pid, 'ERROR', RED)
 		r = call(['kill', str(c_pid)])
 		if r == 0: printf('Client  is killed: %d'%c_pid, 'INFO', GREEN)
-                else: printf('Failed: no such service - %d'%c_pid, 'ERROR', RED)
+                else: printf('Failed: no such client - %d'%c_pid, 'ERROR', RED)
 	
