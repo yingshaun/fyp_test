@@ -138,8 +138,8 @@ if __name__ == '__main__':
 		c_pid = info['client_pid']
 		while True:
 			if os.path.exists('/proc/%d'%c_pid):
-				printf('Cannot kill service: Client(%d) is Alive'%c_pid,'INFO', YELLOW)
-				sleep(3)
+				#printf('Cannot kill service: Client(%d) is Alive'%c_pid,'INFO', YELLOW)
+				sleep(2)
 			else: 
 				call(['kill', str(s_pid)])
 				printf('Service is killed: %d'%s_pid,'INFO',GREEN)
