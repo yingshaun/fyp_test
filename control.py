@@ -8,6 +8,7 @@ from urllib import urlretrieve
 
 parser = argparse.ArgumentParser()
 parser.add_argument('option', choices = ['update', 'start', 'status', 'end', 'quit', 'stat'], help = "")
+parser.add_argument('-f', '--dataFile', help = 'sender: file to send')
 args = parser.parse_args()
 
 NONE   = "\033[m"
@@ -85,21 +86,34 @@ if __name__ == '__main__':
 			printf('Call Failed!', 'ERROR', RED)
 		f.close()
 	if args.option == 'start':
-		try: 
-			with open(os.devnull, "w") as f: 
-				s_p = Popen(['python','run.py'], stdout=f)
-				printf('Service started: %d'%s_p.pid, 'INFO', GREEN)
-				sleep(1)
-				c_p = Popen(['python','cli.py'], stdout=f)
-				printf('Client  started: %d'%c_p.pid, 'INFO', GREEN)
-			d = dict()
-			d['service_pid'] = s_p.pid
-			d['client_pid'] = c_p.pid
-			info_file = open('info.json', 'w+')
-			info_file.write(json.dumps(d))
-			info_file.close()
+		f = open(os.devnull, "w")
+		try:
+			s_p = Popen(['python','run.py'], stdout=f)
+			printf('Service started: %d'%s_p.pid, 'INFO', GREEN)
 		except:
-			printf('Failed!', 'ERROR', RED)
+			printf('Failed to start Service!', 'ERROR', RED)
+			sys.exit(False)
+
+		sleep(1)
+
+		try:
+			if args.dataFile:
+				c_p = Popen(['python','cli.py', args.dataFile], stdout=f)
+				printf('Sender  started: %d'%c_p.pid, 'INFO', GREEN)
+			else:
+				c_p = Popen(['python','cli.py'], stdout=f)
+				printf('Receiver  started: %d'%c_p.pid, 'INFO', GREEN)
+		except Exception as e:
+			printf('Failed to start clients!', 'ERROR', RED)
+			print e.message
+			sys.exit(False)
+
+		d = dict()
+		d['service_pid'] = s_p.pid
+		d['client_pid'] = c_p.pid
+		info_file = open('info.json', 'w+')
+		info_file.write(json.dumps(d))
+		info_file.close()
 		sys.exit(True)
 
 	if args.option == 'status':
