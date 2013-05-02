@@ -137,7 +137,7 @@ if __name__ == '__main__':
 				printf('Cannot kill service: Client(%d) is Alive'%c_pid,'INFO', YELLOW)
 				sleep(3)
 			else: 
-				call(['kill', '-9', str(s_pid)])
+				call(['kill', str(s_pid)])
 				printf('Service is killed: %d'%s_pid,'INFO',GREEN)
 				break
 	if args.option == 'quit': # End both service and client process
@@ -145,10 +145,10 @@ if __name__ == '__main__':
                 except: printf('No info.json', 'ERROR', RED)
                 s_pid = info['service_pid']
                 c_pid = info['client_pid']
-		r = call(['kill', '-9', str(s_pid)])
+		r = call(['kill', str(s_pid)])
 		if r == 0: printf('Service is killed: %d'%s_pid, 'INFO', GREEN)
 		else: printf('Failed: no such service - %d'%s_pid, 'ERROR', RED)
-		r = call(['kill', '-9', str(c_pid)])
+		r = call(['kill', str(c_pid)])
 		if r == 0: printf('Client  is killed: %d'%c_pid, 'INFO', GREEN)
                 else: printf('Failed: no such service - %d'%c_pid, 'ERROR', RED)
 	
