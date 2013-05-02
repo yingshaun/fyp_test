@@ -30,30 +30,30 @@ if __name__ == '__main__':
 
 		# ~/fyp/fyp_nep2p/lib/
 		url = github_url + 'external_gateway.py'
-		call(['wget','-O', BASE + 'lib/external_gateway.py', url, stdout=f])
+		call(['wget','-O', BASE + 'lib/external_gateway.py', url], stdout=f)
 			
 		url = github_url + 'scheduler.py'
-		call(['wget','-O', BASE + 'lib/scheduler.py', url, stdout=f])
+		call(['wget','-O', BASE + 'lib/scheduler.py', url], stdout=f)
 	 	
 		url = github_url + 'app_worker.py'
-                call(['wget','-O', BASE + 'lib/app_worker.py', url, stdout=f])
+                call(['wget','-O', BASE + 'lib/app_worker.py', url], stdout=f)
  
 		# ~/fyp/fyp_nep2p/lib/utl/
 		url = github_url + 'logger.py'
-                call(['wget','-O', BASE + 'lib/util/logger.py', url, stdout=f])
+                call(['wget','-O', BASE + 'lib/util/logger.py', url], stdout=f)
 
 		# ~/fyp/fyp_nep2p/
 		url = github_url + 'statCollect.py'
-                call(['wget','-O', BASE + 'statCollect.py', url, stdout=f])
+                call(['wget','-O', BASE + 'statCollect.py', url], stdout=f)
 
 		url = github_url + 'run.py'
-                call(['wget','-O', BASE + 'run.py', url, stdout=f])
+                call(['wget','-O', BASE + 'run.py', url], stdout=f)
 
 		url = github_url + 'cli.py'
-                call(['wget','-O', BASE + 'cli.py', url, stdout=f])
+                call(['wget','-O', BASE + 'cli.py', url], stdout=f)
 
 		url = github_url + 'ddM16m8r92TO.txt'
-                call(['wget','-O', BASE + 'ddM16m8r92TO.txt', url, stdout=f])
+                call(['wget','-O', BASE + 'ddM16m8r92TO.txt', url], stdout=f)
 
 		f.close()
 
