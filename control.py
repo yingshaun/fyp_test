@@ -74,6 +74,11 @@ if __name__ == '__main__':
 		try: r = urlretrieve(url, out), printf('ddM16m8r92TO.txt', 'Update', GREEN)		
 		except: printf('Failed to update: ddM16m8r92TO.txt', 'Error', RED)
 
+		f = 'clean.sh'
+		url = github_url + f
+                out = BASE + f
+                try: r = urlretrieve(url, out), printf(f, 'Update', GREEN)
+                except: printf('Failed to update: %s'%f, 'Error', RED)
 
 	if args.option == 'stat':
 		printf('Executing statCollect.py', 'INFO', YELLOW)
