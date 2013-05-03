@@ -96,7 +96,7 @@ if __name__ == '__main__':
 			printf('Failed to start Service!', 'ERROR', RED)
 			sys.exit(1)
 
-		while True: if os.path.exists('/proc/%d'%s_p.pid): break
+		#while True: if os.path.exists('/proc/%d'%s_p.pid): break
 		sleep(3)
 
 		try:
