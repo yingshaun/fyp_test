@@ -22,8 +22,8 @@ if __name__ == "__main__":
 
 	if filepath:
 		#abc = raw_input('Press enter to start sending....')
-		print 'sending in 5 seconds'
-		gevent.sleep(5)
+		print 'sending in 3 seconds'
+		gevent.sleep(3)
 		print 'sendto...'
 		print app.sendfileto(nodes, filepath)
 	else:

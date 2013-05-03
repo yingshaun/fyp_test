@@ -116,6 +116,7 @@ if __name__ == '__main__':
 		info_file = open('info.json', 'w+')
 		info_file.write(json.dumps(d))
 		info_file.close()
+		sleep(10000)
 		sys.exit(0)
 
 	if args.option == 'status':
