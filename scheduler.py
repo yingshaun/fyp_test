@@ -72,7 +72,7 @@ class scheduler(threading.Thread):
 			self.lock.acquire()
 
 			t = time.time()
-			if self.connection_heap[0].next_send_time <= time.time():
+			if len(self.connection_heap)>0 and self.connection_heap[0].next_send_time <= time.time():
 				self.count += 1
 				c = heappop(self.connection_heap)
 
@@ -160,6 +160,9 @@ class scheduler(threading.Thread):
 					modules.external_gateway.t3, modules.external_gateway.t2, self.generate_time,
 					now-c.start_time, c.num_sent/(now-c.start_time)), "SCHEDULER", RED)
 			
+			if len(self.connection_heap)==0:
+				self.lock.release()
+				continue
 			sleep_period = self.connection_heap[0].next_send_time - time.time() - self.t
 			if sleep_period >= self.SLEEP_THRESHOLD: #TODO: adjust threshold
 				if self.DEBUG:
