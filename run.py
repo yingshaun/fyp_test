@@ -36,5 +36,5 @@ if __name__ == "__main__":
 		time.sleep(float(sys.argv[1]))
 	else:
 		while True:
-			time.sleep(100)
+			time.sleep(100000000)
 	#yappi.print_stats()
