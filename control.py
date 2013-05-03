@@ -9,7 +9,7 @@ from urllib import urlretrieve
 parser = argparse.ArgumentParser()
 parser.add_argument('option', choices = ['update', 'start', 'check','status', 'end', 'quit', 'stat'], help = "")
 parser.add_argument('-f', '--dataFile', help = 'sender: file to send')
-parser.add_argument('-s', '--checkServiceFlag', choices = ['True', 'False'], help = 'Check service status; ')
+parser.add_argument('-r', '--role', choices = ['s', 'c'], help = 'Role: service / client')
 args = parser.parse_args()
 
 NONE   = "\033[m"
@@ -116,23 +116,36 @@ if __name__ == '__main__':
 		info_file = open('info.json', 'w+')
 		info_file.write(json.dumps(d))
 		info_file.close()
-		sleep(10000)
+		r1 = c_p.wait()
+		printf('Client  is finished: %d, returncode: %s'%(c_p.pid, str(r1)), 'INFO', GREEN)
+		r2 = s_p.wait()
+		printf('Service is finished: %d, returncode: %s'%(c_p.pid, str(r2)), 'INFO', GREEN)
 		sys.exit(0)
 
 	if args.option == 'status':
 		try: info = json.loads(open('info.json','r').read())	
 		except: printf('No info.json', 'ERROR', RED)
 
-		if args.checkServiceFlag == 'True':
+		if args.role == 's':
 			s_pid = info['service_pid']
-			if os.path.exists('/proc/%d'%s_pid):
-				printf('Service is alive: %d'%s_pid, 'INFO', GREEN)
-			else: printf('No such service: %d'%s_pid, 'INFO', YELLOW)
-		else:
+                        if os.path.exists('/proc/%d'%s_pid):
+                                printf('Service is alive: %d'%s_pid, 'INFO', GREEN)
+                        else: printf('No such service: %d'%s_pid, 'INFO', YELLOW)
+		elif args.role == 'c':
 			c_pid = info['client_pid']
-			if os.path.exists('/proc/%d'%c_pid):
-				printf('Client  is alive: %d'%c_pid, 'INFO', GREEN)
-			else: printf('No such client: %d'%c_pid, 'INFO', YELLOW)
+                        if os.path.exists('/proc/%d'%c_pid):
+                                printf('Client  is alive: %d'%c_pid, 'INFO', GREEN)
+                        else: printf('No such client: %d'%c_pid, 'INFO', YELLOW)
+		else:
+			s_pid = info['service_pid']
+                        if os.path.exists('/proc/%d'%s_pid):
+                                printf('Service is alive: %d'%s_pid, 'INFO', GREEN)
+                        else: printf('No such service: %d'%s_pid, 'INFO', YELLOW)
+			
+			c_pid = info['client_pid']
+                        if os.path.exists('/proc/%d'%c_pid):
+                                printf('Client  is alive: %d'%c_pid, 'INFO', GREEN)
+                        else: printf('No such client: %d'%c_pid, 'INFO', YELLOW)
 
 	if args.option == 'check':
 		try: info = json.loads(open('info.json','r').read())	
@@ -149,16 +162,27 @@ if __name__ == '__main__':
 	if args.option == 'end': # End the service when client is closed	
 		try: info = json.loads(open('info.json','r').read())
                 except: printf('No info.json', 'ERROR', RED)
+
 		s_pid = info['service_pid']
-		c_pid = info['client_pid']
-		while True:
-			if os.path.exists('/proc/%d'%c_pid):
-				#printf('Cannot kill service: Client(%d) is Alive'%c_pid,'INFO', YELLOW)
-				sleep(2)
-			else: 
-				call(['kill', str(s_pid)])
-				printf('Service is killed: %d'%s_pid,'INFO',GREEN)
-				break
+                c_pid = info['client_pid']
+
+		if args.role == 's' and os.path.exists('/proc/%d'%s_pid):
+			call(['kill', str(s_pid)])
+			printf('Service is killed: %d'%s_pid,'INFO',GREEN)
+		elif args.role == 'c' and os.path.exists('/proc/%d'%c_pid):
+			call(['kill', str(c_pid)])
+			printf('Client  is killed: %d'%c_pid,'INFO',GREEN)
+		else:
+			while True:
+				if os.path.exists('/proc/%d'%c_pid):
+					#printf('Cannot kill service: Client(%d) is Alive'%c_pid,'INFO', YELLOW)
+					sleep(2)
+				else: 
+					call(['kill', str(s_pid)])
+					printf('Service is killed: %d'%s_pid,'INFO',GREEN)
+					break
+
+
 	if args.option == 'quit': # End both service and client process
 		try: info = json.loads(open('info.json','r').read())
                 except: printf('No info.json', 'ERROR', RED)
