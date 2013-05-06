@@ -105,6 +105,7 @@ outputFile = open(OUT_FILE_PATH, 'w+')
 mySndDict = readLogFile(SND_LOG_FILE, SND_JSON_FILE, 'w+')
 stat['snd_info'] = json.loads(open(SND_JSON_FILE, 'r').read())
 
+
 myRcvDict = readLogFile(RCV_LOG_FILE, RCV_JSON_FILE, 'w+')
 stat['rcv_info'] = json.loads(open(RCV_JSON_FILE, 'r').read())
 
@@ -113,7 +114,13 @@ try:
 except:
 	stat['general_info'] = {}
 
+stat['general_info']['snd'] = dict()
+for i in range(len(mySndDict.keys())):
+	stat['general_info']['snd'][mySndDict.keys()[i]] = sum(mySndDict[mySndDict.keys()[i]])
 
+stat['general_info']['rcv'] = dict()
+for i in range(len(myRcvDict.keys())):
+	stat['general_info']['rcv'][myRcvDict.keys()[i]] = sum(myRcvDict[myRcvDict.keys()[i]])
 
 outputFile.write(json.dumps(stat))
 outputFile.close()

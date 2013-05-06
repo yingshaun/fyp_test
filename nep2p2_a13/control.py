@@ -27,7 +27,8 @@ def printf(msg, mark, color=NONE):
 
 if __name__ == '__main__':
 	if args.option == 'update':
-		github_url = 'https://raw.github.com/xuancaishaun/fyp_test/master/'
+		version = 'nep2p2_a13'
+		github_url = 'https://raw.github.com/xuancaishaun/fyp_test/master/' + version + '/'
 		#BASE = '~/fyp/fyp_nep2p/'
 		BASE = '' # relative path
 
@@ -76,9 +77,9 @@ if __name__ == '__main__':
 
 		f = 'clean.sh'
 		url = github_url + f
-                out = BASE + f
-                try: r = urlretrieve(url, out), printf(f, 'Update', GREEN)
-                except: printf('Failed to update: %s'%f, 'Error', RED)
+		out = BASE + f
+		try: r = urlretrieve(url, out), printf(f, 'Update', GREEN)
+		except: printf('Failed to update: %s'%f, 'Error', RED)
 
 	if args.option == 'stat':
 		printf('Executing statCollect.py', 'INFO', YELLOW)
@@ -200,4 +201,3 @@ if __name__ == '__main__':
 		r = call(['kill', str(c_pid)])
 		if r == 0: printf('Client  is killed: %d'%c_pid, 'INFO', GREEN)
                 else: printf('Failed: no such client - %d'%c_pid, 'ERROR', RED)
-	
