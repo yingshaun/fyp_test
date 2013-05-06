@@ -203,7 +203,7 @@ class app_worker(object):
 		dd['duration'] = self.end_time - self.start_time
 		dd['num_received'] = self.num_received
 		dd['num_sent'] = self.num_sent
-		dd['num_decoded'] = self.decoder.geDecoded()
+		dd['num_decoded'] = self.decoder.deDecoded()
 		dd['hash_value'] = self.myhash
 		l.logline(json.dumps(dd))
 	#	l.logline('%f\n%f\n%d\n%d\n%d'%(
