@@ -74,7 +74,7 @@ class external_gateway(gateway.gateway):
 		if pkt['type'] == MessageType.PACKET:
 			if send_to_me == True:
 
-				self.myLogger.logPkt(remote, time.time(), '0.1', 1)
+				self.myLogger.logPkt(remote, time.time(), 1)
 
 				#get the worker and init its decoder (similar to that in IGW)
 				w.init_decoder(pkt['size'])
