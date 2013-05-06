@@ -28,9 +28,8 @@ def printf(msg, mark, color=NONE):
 
 if __name__ == '__main__':
 	if args.option == 'update':
-		if args.version == 'a16':
-			version = args.version
-		else: version = 'a13'
+		if args.version == 'a16': version = 'nep2p2_a16'
+		else: version = 'nep2p2_a13'
 		github_url = 'https://raw.github.com/xuancaishaun/fyp_test/master/' + version + '/'
 		#BASE = '~/fyp/fyp_nep2p/'
 		BASE = '' # relative path

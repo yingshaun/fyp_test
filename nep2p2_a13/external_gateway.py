@@ -34,26 +34,11 @@ class external_gateway(gateway.gateway):
 		self.STOP_DECODER = conf['stop_decoder'] if 'stop_decoder' in conf else False
 		self.NO_PROCESS = conf['egw_noprocess'] if 'egw_noprocess' in conf else False
 
-		#############################################################################
-		myTime = time.gmtime()
-		#self.myLogFileName = 'log/rcv_' + '{0}_{1}_{2}-{3}-{4}'.format(myTime.tm_mon, myTime.tm_mday, myTime.tm_hour, myTime.tm_min, myTime.tm_sec)
-		self.myLogFileName = LOG_FILE_BASE + 'rcv.log'
-		self.myLogger = Logger(self.myLogFileName)
-		self.myLogger.logline('# Start of logging: ' + time.ctime())
-		self.myCount = dict()			#{(ip, asid): (timestamp, count)}
-		#self.myCount = (0, (u'0',0), 0)	# (timestamp, (ip, asid), count)
-		#############################################################################
+		self.myLogger = dataFlowLogger('rcv.log')
+		self.myLogger.start()
 
-
-	#####################################################################################
 	def __del__(self):
-		#self.myLogger.logline(str(self.myCount))i
-		for tmp_remote in self.myCount.keys():
-			myCurCount = self.myCount[tmp_remote]
-			self.myLogger.logline('{0}; {1}; {2};'.format(tmp_remote, myCurCount[0], myCurCount[1]))
-		self.myLogger.logline('# End of logging: ' + time.ctime())
-		self.myLogger.close()
-	#####################################################################################
+		self.myLogger.stop()
 
 	def process_pkt(self, pkt):
 		if self.NO_PROCESS:
@@ -89,33 +74,7 @@ class external_gateway(gateway.gateway):
 		if pkt['type'] == MessageType.PACKET:
 			if send_to_me == True:
 
-				#########################################################################
-				#self.myLogger.logline(str(pkt))
-				#self.myLogger.logline('{0}, {1}, {2}'.format(time.time(), remote, len(str(pkt))))	
-				tmp_remote = remote
-				curTime = float('%0.1f'%time.time())	# Precision: 0.01 seconds
-				#curTime = int(time.time())	# Precision: 1 seconds
-				
-				myCurCount = self.myCount.get(tmp_remote)
-                                if myCurCount == None:
-                                        self.myCount[tmp_remote] = (curTime, 1)
-                                elif curTime == myCurCount[0]:
-                                        self.myCount[tmp_remote] = (curTime, myCurCount[1] + 1)
-                                else:
-                                        self.myLogger.logline('{0}; {1}; {2};'.format(tmp_remote, myCurCount[0], myCurCount[1]))
-					self.myCount[tmp_remote] = (curTime, 1)
- 
-				'''
-				if curTime == self.myCount[0] and str(remote) == str(self.myCount[1]):
-					self.myCount = (self.myCount[0], self.myCount[1], self.myCount[2] + 1)
-					#print self.myCount
-				else:
-					self.myLogger.logline(str(self.myCount))
-					self.myCount = (curTime, remote, 1)
-				'''
-				########################################################################
-				
-
+				self.myLogger.logPkt(remote, time.time(), '0.1', 1)
 
 				#get the worker and init its decoder (similar to that in IGW)
 				w.init_decoder(pkt['size'])

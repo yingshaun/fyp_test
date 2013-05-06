@@ -196,16 +196,16 @@ class app_worker(object):
 			pass
 		#l = Logger('log/%d.log'%self.mysize)
 		#l = Logger(LOG_FILE_BASE + 'stat_%s.log'%self.myhash, 'w+')
-		l = Logger(LOG_FILE_BASE + 'gnl.json', 'w+')
-		l.logline('{')
-		l.logline('"start_time": %f,'%self.start_time)
-		l.logline('"end_time": %f,'%self.end_time)
-		l.logline('"duration": %d,'%(self.end_time - self.start_time))
-		l.logline('"num_received": %d,'%self.num_received)
-		l.logline('"num_sent": %d,'%self.num_sent)
-		l.logline('"num_decoded": %d,'%self.decoder.getDecoded())
-		l.logline('"hash_value": "%s"'%self.myhash)
-		l.logline('}\n')
+		l = dataFlowLogger('gnl.json')
+		dd = dict()
+		dd['start_time'] = self.start_time
+		dd['end_time'] = self.end_time
+		dd['duration'] = self.end_time - self.start_time
+		dd['num_received'] = self.num_received
+		dd['num_sent'] = self.num_sent
+		dd['num_decoded'] = self.decoder.geDecoded()
+		dd['hash_value'] = self.myhash
+		l.logline(json.dumps(dd))
 	#	l.logline('%f\n%f\n%d\n%d\n%d'%(
 	#		self.start_time,
 	#		self.end_time,

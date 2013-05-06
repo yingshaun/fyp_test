@@ -35,27 +35,11 @@ class scheduler(threading.Thread):
 		#self.FLOOD = conf['flood'] if 'flood' in conf else False
 		self.count = 0
 
-		###############################################################################	
-		myTime = time.gmtime()
-                #self.myLogFileName = 'log/snd_' + '{0}_{1}_{2}-{3}-{4}'.format(myTime.tm_mon, myTime.tm_mday, myTime.tm_hour, myTime.tm_min, myTime.tm_sec)
-                self.myLogFileName = LOG_FILE_BASE + 'snd.log'
-		self.myLogger = Logger(self.myLogFileName)
+		self.myLogger = dataFlowLogger('snd.log')
+		self.myLogger.start()
 
-		self.myLogger.logline('# Start of logging: ' + time.ctime())
-		#self.myCount = (0, (u'0', 0), 0)	# (timestamp, (ip, asid), count)
-		self.myCount = dict()			# {(ip, asid): (timestamp, count)}
-		###############################################################################
-
-
-	###############################################################################
 	def __del__(self):
-		#self.myLogger.logline(str(self.myCount))
-		for tmp_remote in self.myCount.keys():
-			myCurCount = self.myCount[tmp_remote]
-                        self.myLogger.logline('{0}; {1}; {2};'.format(tmp_remote, myCurCount[0], myCurCount[1]))
-                self.myLogger.logline('# End of logging: ' + time.ctime())
-                self.myLogger.close()
-	###############################################################################
+		self.myLogger.stop()
 
 	def run(self):
 		myip = modules.ip.myip
@@ -114,29 +98,9 @@ class scheduler(threading.Thread):
 					#	printf("send pkt too long! %d"%(len(ppp),), "PKT", YELLOW)
 					modules.external_gateway.sock.sendto(ppp,(ip,EXTERNAL_PORT))
 
-				#################################################################################################
-					#print len(str(ppp))
-					#self.myLogger.logline('{0}, {1}, {2}'.format(time.time(), (ip, send_pkt['src_asid']), len(str(ppp))))
+				
 				tmp_remote = (ip, send_pkt['src_asid'])
-				curTime = float('%0.1f'%time.time())	# Precision: 0.01 seconds
-				#curTime = int(time.time())	# Precision: 1 seconds
-
-				myCurCount = self.myCount.get(tmp_remote)
-				if myCurCount == None:
-					self.myCount[tmp_remote] = (curTime, len(pkts))
-				elif curTime == myCurCount[0]:
-					self.myCount[tmp_remote] = (curTime, myCurCount[1] + len(pkts))
-				else:
-					self.myLogger.logline('{0}; {1}; {2};'.format(tmp_remote, myCurCount[0], myCurCount[1]))
-					self.myCount[tmp_remote] = (curTime, len(pkts))
-
-				#if curTime == self.myCount[0] and tmp_remote == self.myCount[1]:
-				#	self.myCount = (self.myCount[0], self.myCount[1], self.myCount[2] + len(pkts))
-				#	print self.myCount
-				#else:
-				#	self.myLogger.logline(str(self.myCount))
-				#	self.myCount = (curTime, tmp_remote, len(pkts))
-				##################################################################################################
+				self.myLogger.logPkt(tmp_remote, time.time(), len(pkts))
 
 				modules.external_gateway.node_list.updateSendTime(ip)
 				c.num_sent += len(pkts)
