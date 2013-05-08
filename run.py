@@ -27,7 +27,7 @@ if __name__ == "__main__":
 	lib.modules.scheduler.start()
 	lib.modules.external_gateway.start()
 	lib.modules.internal_gateway.start()
-	print '1.0a13 11:08'
+	print '1.0a16 11:55'
 	
 	signal.signal(signal.SIGINT, bye)
 	signal.signal(signal.SIGTERM, bye)

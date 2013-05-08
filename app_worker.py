@@ -6,7 +6,7 @@ from util.config import *
 from util.message import *
 from util.internal_message import *
 from util.common import printf, hashFunc
-from util.logger import Logger
+from util.logger import *
 #from util.cache import Cache, packetId
 #from base_worker import base_worker
 from util.bats import NIODecoder as Decoder
@@ -196,6 +196,7 @@ class app_worker(object):
 			os.mkdir('log')
 		except:
 			pass
+		'''
 		l = Logger('log/%d.log'%self.mysize)
 		l.logline('%f\n%f\n%d\n%d\n%d'%(
 			self.start_time,
@@ -204,6 +205,17 @@ class app_worker(object):
 			self.num_sent,
 			self.decoder.getDecoded(),
 		))
+		'''
+		l = dataFlowLogger('gnl.json')
+		dd = dict()
+		dd['start_time'] = self.start_time
+		dd['end_time'] = self.end_time
+		dd['duration'] = self.end_time - self.start_time
+		dd['num_received'] = self.num_received
+		dd['num_sent'] = self.num_sent
+		dd['num_decoded'] = self.decoder.deDecoded()
+		dd['hash_value'] = self.myhash
+		l.logline(json.dumps(dd))
 		l.close()
 
 class AppLogger(threading.Thread):
@@ -220,6 +232,8 @@ class AppLogger(threading.Thread):
 		try:
 			print 'log start'
 			while not self.stop_log.is_set():
+				printf('%s sent: %d, rcvd: %d, decoded: %d'%(time.ctime()[11:19], self.app.num_sent, self.app.num_received, self.app.decoder.getDecoded() if self.app.decoder else 0), 'APP_WORKER', RED)
+
 				self.app.pktLogger.logline("%f %d %d %d"%(
 					time.time(),
 					self.app.num_sent,

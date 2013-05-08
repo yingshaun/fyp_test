@@ -10,6 +10,7 @@ from util.singleton import Singleton
 import gateway
 import modules
 import cffi
+from util.logger import *
 
 ffi = cffi.FFI()
 
@@ -39,6 +40,12 @@ class external_gateway(gateway.gateway):
 		self.stop_msg = message(message.create_message(MessageType.STOP))
 		self.stop_pkt = self.stop_msg.get_bm()
 		self.stop_pkt.src_addr = message.IPStringtoByte(self.myip)
+
+		self.myLogger = dataFlowLogger('rcv.log')
+		self.myLogger.start()
+
+	def __del__(self):
+		self.myLogger.stop()
 
 	def process_pkt(self, msg):
 		if self.NO_PROCESS:
@@ -79,6 +86,7 @@ class external_gateway(gateway.gateway):
 
 		if ord(pkt.msg_type) == MessageType.PACKET:
 			if send_to_me == True:
+				self.myLogger.logPkt(remote, time.time(), 1) # shaun
 				#get the worker and init its decoder (similar to that in IGW)
 				w.init_decoder(pkt.file_size)
 				if local not in w.remote_senders:

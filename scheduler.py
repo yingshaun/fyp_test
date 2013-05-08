@@ -34,7 +34,13 @@ class scheduler(threading.Thread):
 		self.SLEEP_THRESHOLD = conf['scheduler_sleepthreshold'] if 'scheduler_sleepthreshold' in conf else 0
 		#self.FLOOD = conf['flood'] if 'flood' in conf else False
 		self.count = 0
+
+		self.myLogger = dataFlowLogger('snd.log')	# shaun
+		self.myLogger.start()	# shaun
 	
+	def __del__(self):
+		self.myLogger.stop()	# shaun
+
 	#@profile
 	def run(self):
 		myip = modules.ip.myip
@@ -111,6 +117,9 @@ class scheduler(threading.Thread):
 					#if len(ppp)>BUF_SIZE:
 					#	printf("send pkt too long! %d"%(len(ppp),), "PKT", YELLOW)
 					modules.external_gateway.sock.sendto(ppp,(ip,EXTERNAL_PORT))
+
+				__remote = (ip, send_pkt['src_asid'])
+				self.myLogger.logPkt(tmp_remote, time.time(), len(pkts))
 
 				modules.external_gateway.node_list.updateSendTime(ip)
 				c.num_sent += len(pkts)
