@@ -11,6 +11,7 @@ from util.singleton import Singleton
 import threading
 import modules
 from heapq import heappush, heappop, heapify, heappushpop
+from util.logger import *
 
 @Singleton
 class scheduler(threading.Thread):
