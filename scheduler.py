@@ -119,7 +119,7 @@ class scheduler(threading.Thread):
 					#	printf("send pkt too long! %d"%(len(ppp),), "PKT", YELLOW)
 					modules.external_gateway.sock.sendto(ppp,(ip,EXTERNAL_PORT))
 
-				__remote = (ip, send_pkt['src_asid'])
+				tmp_remote = (ip, send_pkt.src_asid)
 				self.myLogger.logPkt(tmp_remote, time.time(), len(pkts))
 
 				modules.external_gateway.node_list.updateSendTime(ip)
