@@ -136,6 +136,10 @@ if __name__ == '__main__':
 		info_file = open('info.json', 'w+')
 		info_file.write(json.dumps(d))
 		info_file.close()
+
+		signal.signal(signal.SIGINT, bye)
+		signal.signal(signal.SIGTERM, bye)
+
 		r1 = c_p.wait()
 		printf('Client  is finished: %d, returncode: %s'%(c_p.pid, str(r1)), 'INFO', GREEN)
 		r2 = s_p.wait()
