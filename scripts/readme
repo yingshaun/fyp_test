@@ -1,0 +1,8 @@
+# Readme
+
+1. Download wgetnep2p3.sh from Github
+2. Go to ~/Danny/ if it is already existing; create it otherwise
+3. sudo chmod +x wgetnep2p3.sh
+4. sudo ./wgetnep2p3.sh
+5. sudo chmod +x softwareinit3.sh
+5. sudo ./softwareinit3.sh
