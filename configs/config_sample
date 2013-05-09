@@ -1,0 +1,10 @@
+Host s2
+	HostName planetlab2-santiago.lan.redclara.net
+	User cuhk_inc_01
+	IdentifyFile ~/.ssh/planetlab2_rsa
+
+Host s1
+	HostName planetlab4.williams.edu
+	User cuhk_inc_01
+	IdentifyFile ~/.ssh/planetlab2_rsa
+
