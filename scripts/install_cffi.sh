@@ -9,5 +9,6 @@ cd cffi-0.6
 python setup.py build
 sudo python setup.py install
 
+cd ..
 sudo rm -r cffi-0.6
 rm cffi-0.6.tar.gz
