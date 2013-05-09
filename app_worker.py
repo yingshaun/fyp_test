@@ -206,6 +206,18 @@ class app_worker(object):
 			self.decoder.getDecoded(),
 		))
 		'''
+		l = Logger(LOG_FILE_BASE + 'gnl.json', 'w+')
+		l.logline('{')
+		l.logline('"start_time": %f,'%self.start_time)
+		l.logline('"end_time": %f,'%self.end_time)
+		l.logline('"duration": %d,'%(self.end_time - self.start_time))
+		l.logline('"num_received": %d,'%self.num_received)
+		l.logline('"num_sent": %d,'%self.num_sent)
+		l.logline('"num_decoded": %d,'%self.decoder.getDecoded())
+		l.logline('"hash_value": "%s"'%self.myhash)
+		l.logline('}\n')
+		l.close()
+		"""
 		l = dataFlowLogger('gnl.json')
 		dd = dict()
 		dd['start_time'] = self.start_time
@@ -217,6 +229,7 @@ class app_worker(object):
 		dd['hash_value'] = self.myhash
 		l.logline(json.dumps(dd))
 		l.close()
+		"""
 
 class AppLogger(threading.Thread):
 	def __init__(self, app_worker):

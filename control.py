@@ -3,7 +3,7 @@ import json
 import argparse
 from subprocess import *
 from time import sleep
-import os, sys
+import os, sys, signal
 from urllib import urlretrieve 
 
 parser = argparse.ArgumentParser()
@@ -25,6 +25,10 @@ WHITE  = "\033[1;37m"
 
 def printf(msg, mark, color=NONE):
 	print '{0}[{1:^10}] {2}{3}'.format(color, mark, msg, NONE)
+
+def bye(signum, frame):
+	print '\nControl.py Exit'
+	sys.exit()
 
 if __name__ == '__main__':
 	if args.option == 'update':
