@@ -213,7 +213,7 @@ class app_worker(object):
 		dd['duration'] = self.end_time - self.start_time
 		dd['num_received'] = self.num_received
 		dd['num_sent'] = self.num_sent
-		dd['num_decoded'] = self.decoder.deDecoded()
+		dd['num_decoded'] = self.decoder.getDecoded()
 		dd['hash_value'] = self.myhash
 		l.logline(json.dumps(dd))
 		l.close()
