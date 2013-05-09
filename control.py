@@ -83,6 +83,13 @@ if __name__ == '__main__':
 		try: r = urlretrieve(url, out), printf(f, 'Update', GREEN)
 		except: printf('Failed to update: %s'%f, 'Error', RED)
 
+		if args.version == 'a16':
+			f = 'ip.py'
+			url = github_url + f
+			out = BASE + 'lib/util/ip.py'
+			try: r = urlretrieve(url, out), printf(f, 'Update', GREEN)
+                	except: printf('Failed to update: %s'%f, 'Error', RED)
+
 	if args.option == 'stat':
 		printf('Executing statCollect.py', 'INFO', YELLOW)
 		try:
