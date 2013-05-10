@@ -43,7 +43,7 @@ class dataFlowLogger(Logger):# Scheduler.py
 
 	def stop(self):
 		for key in self.count.keys():
-                        self.logline('{0}; {1}; {2};'.format(key, self.nextTime, self.count[key]))
+                        self.logline('{0}; {1}; {2};'.format(key, formatTime(time.time()), self.count[key]))
                 self.logline('# End of logging: ' + time.ctime())
                 self.close()
 

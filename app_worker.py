@@ -62,8 +62,8 @@ class app_worker(object):
 			#init the logger
 			self.pktLogger = Logger('log/%s/%d/%s.log'%(
 				modules.ip.myip,
-				self.mysize,
-				self.myhash),'a+')
+				self.mysize, 'a+'
+				#self.myhash),'a+')
 			print 'a'
 			self.logThread = AppLogger(self)
 			print 'b'
