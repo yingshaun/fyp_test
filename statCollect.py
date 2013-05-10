@@ -1,5 +1,6 @@
 import json
 import argparse
+from math import floor
 
 parser = argparse.ArgumentParser()
 parser.add_argument('config_path', help = "path of 'config.json'")
@@ -21,10 +22,10 @@ GNL_LOG_FILE = LOG_FILE_BASE + 'gnl.json'	# general information
 OUT_FILE_PATH = LOG_FILE_BASE + 'stat.json'
 
 def ff(timestamp):
-	if LOG_PRECISION:
-		return float('%{0}f'.format(LOG_PRECISION) % float(timestamp))
+	if type(LOG_PRECISION) == type(1):
+		return int(floor(float(timestamp)))
 	else:
-		return int(float(timestamp))	
+		return float('%{0}f'.format(LOG_PRECISION)%float(timestamp))
 
 def readLogFile(in_path, out_path, mode = 'a+'):
 	inputFile = open(in_path, 'r')
