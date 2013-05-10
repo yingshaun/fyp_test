@@ -219,7 +219,7 @@ class app_worker(object):
 		l.logline('"duration": %d,'%(self.end_time - self.start_time))
 		l.logline('"num_received": %d,'%self.num_received)
 		l.logline('"num_sent": %d,'%self.num_sent)
-		l.logline('"num_decoded": %d,'%self.decoder.getDecoded())
+		l.logline('"num_decoded": %d'%self.decoder.getDecoded())
 		#l.logline('"hash_value": "%s"'%self.myhash)
 		l.logline('}\n')
 		l.close()
