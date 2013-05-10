@@ -26,10 +26,8 @@ WHITE  = "\033[1;37m"
 def printf(msg, mark, color=NONE):
 	print '{0}[{1:^10}] {2}{3}'.format(color, mark, msg, NONE)
 
-flag = True
 def bye(signum, frame):
 	print '\nControl.py Exit'
-	flag = False
 
 if __name__ == '__main__':
 	if args.option == 'update':
@@ -141,11 +139,10 @@ if __name__ == '__main__':
 		signal.signal(signal.SIGINT, bye)
 		signal.signal(signal.SIGTERM, bye)
 
-		while flag:
-			r1 = c_p.wait()
-			printf('Client  is finished: %d, returncode: %s'%(c_p.pid, str(r1)), 'INFO', GREEN)
-			r2 = s_p.wait()
-			printf('Service is finished: %d, returncode: %s'%(c_p.pid, str(r2)), 'INFO', GREEN)
+		r1 = c_p.wait()
+		printf('Client  is finished: %d, returncode: %s'%(c_p.pid, str(r1)), 'INFO', GREEN)
+		r2 = s_p.wait()
+		printf('Service is finished: %d, returncode: %s'%(c_p.pid, str(r2)), 'INFO', GREEN)
 		sys.exit(0)
 
 	if args.option == 'status':
