@@ -244,6 +244,7 @@ class ListDict():
 #-------------------#
 class rudpSocket(object):
 	def __init__(self):
+		self.BUF_SIZE = MAX_DATA #shaun
 	#UDP socket
 		self.skt  = socket(AF_INET, SOCK_DGRAM) #UDP
 	#receivers, senders and ACK waiting list
@@ -264,7 +265,6 @@ class rudpSocket(object):
 	#stat
 		if RUDP_STAT:
 			self.rec = Recorder()
-		self.BUF_SIZE = MAX_DATA #shaun
 
 	def __del__(self):
 		self.skt.close()
