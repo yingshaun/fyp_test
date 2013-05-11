@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('option', choices = ['update', 'start', 'check','status', 'end', 'quit', 'stat'], help = "")
 parser.add_argument('-f', '--dataFile', help = 'sender: file to send')
 parser.add_argument('-r', '--role', choices = ['s', 'c'], help = 'Role: service / client')
-parser.add_argument('-v', '--version', choices = ['a16', 'a13'], help = 'Version: nep2p2_a13/nep2p2_a16')
+parser.add_argument('-v', '--version', choices = ['a16', 'a13', 'a16_rudp'], help = 'Version: nep2p2_a13/nep2p2_a16')
 args = parser.parse_args()
 
 NONE   = "\033[m"
@@ -31,8 +31,10 @@ def bye(signum, frame):
 
 if __name__ == '__main__':
 	if args.option == 'update':
-		if args.version == 'a16': version = ''
-		else: version = 'nep2p2_a13/'
+		if args.version == 'a16': 
+			version = ''
+		else: 
+			version = 'nep2p2_a13/'
 		github_url = 'https://raw.github.com/xuancaishaun/fyp_test/master/' + version
 		#BASE = '~/fyp/fyp_nep2p/'
 		BASE = '' # relative path
