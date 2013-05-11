@@ -1,5 +1,6 @@
 import json
 import argparse
+from math import floor
 
 parser = argparse.ArgumentParser()
 parser.add_argument('config_path', help = "path of 'config.json'")
@@ -21,10 +22,10 @@ GNL_LOG_FILE = LOG_FILE_BASE + 'gnl.json'	# general information
 OUT_FILE_PATH = LOG_FILE_BASE + 'stat.json'
 
 def ff(timestamp):
-	if LOG_PRECISION:
-		return float('%{0}f'.format(LOG_PRECISION) % float(timestamp))
+	if type(LOG_PRECISION) == type(1):
+		return int(floor(float(timestamp)))
 	else:
-		return int(float(timestamp))	
+		return float('%{0}f'.format(LOG_PRECISION)%float(timestamp))
 
 def readLogFile(in_path, out_path, mode = 'a+'):
 	inputFile = open(in_path, 'r')
@@ -69,13 +70,13 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 			line = line.split(';')
 			index = int(ff((float(line[1]) - start_time) / step_size))
 			#print float(line[1]), ff((float(line[1]) - start_time)/step_size), index, int(line[2])
-			myDict[line[0]][index] = int(line[2])
+			myDict[line[0]][index] += int(line[2])
 
 	outputFile.write('[\n')
 	keys = myDict.keys()
 	for i in range(len(keys)):
 		outputFile.write('     {\n')
-		outputFile.write('           "key" : "{0}" , \n'.format('(' + keys[i][2:]))
+		outputFile.write('           "key" : "{0}" , \n'.format(keys[i]))
 		outputFile.write('           "values": [')
 		myList = myDict[keys[i]]
 		for j in range(len(myList) - 1):
@@ -104,7 +105,6 @@ outputFile = open(OUT_FILE_PATH, 'w+')
 
 mySndDict = readLogFile(SND_LOG_FILE, SND_JSON_FILE, 'w+')
 stat['snd_info'] = json.loads(open(SND_JSON_FILE, 'r').read())
-
 
 myRcvDict = readLogFile(RCV_LOG_FILE, RCV_JSON_FILE, 'w+')
 stat['rcv_info'] = json.loads(open(RCV_JSON_FILE, 'r').read())
