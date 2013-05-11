@@ -59,4 +59,10 @@ then
 	sudo rm -r __MACOSX
 	sudo rm -r bats_clean
 	cp fyp_nep2p/libbatscore.so nep2p2_ms3/
+
+elif [ "$1" == "gevent_upgrade" ]
+then
+	sudo yum install git
+	sudo pip install greenlet==dev
+	sudo pip install cython -e git://github.com/surfly/gevent.git#egg=gevent
 fi
