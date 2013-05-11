@@ -23,6 +23,8 @@ then
 	wget -O lib/external_gateway.py https://raw.github.com/xuancaishaun/fyp_test/master/external_gateway.py
 	wget -O lib/scheduler.py https://raw.github.com/xuancaishaun/fyp_test/master/scheduler.py
 	wget -O lib/app_worker.py https://raw.github.com/xuancaishaun/fyp_test/master/app_worker.py
+	wget -O lib/gateway.py https://raw.github.com/xuancaishaun/fyp_test/master/gateway.py
+	wget -O lib/appsocket.py https://raw.github.com/xuancaishaun/fyp_test/master/appsocket.py
 
 	wget -O lib/util/logger.py https://raw.github.com/xuancaishaun/fyp_test/master/logger.py
 	wget -O lib/util/ip.py https://raw.github.com/xuancaishaun/fyp_test/master/ip.py
