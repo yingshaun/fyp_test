@@ -31,7 +31,7 @@ def bye(signum, frame):
 
 if __name__ == '__main__':
 	if args.option == 'update':
-		if args.version == 'a16': 
+		if args.version == 'a16' or 'a16_rudp': 
 			version = ''
 		else: 
 			version = 'nep2p2_a13/'

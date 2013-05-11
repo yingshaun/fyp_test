@@ -9,3 +9,8 @@ The following files are modified:
 	-> changed to rudpSocket
 
 We intend to adjust rudpSocket to accommodate NeP2P a16
+
+Update greenlet and gevent:
+1. sudo pip install greenlet==dev
+2. sudo pip install cython -e git://github.com/surfly/gevent.git#egg=gevent
+
