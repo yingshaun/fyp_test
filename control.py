@@ -31,6 +31,13 @@ def bye(signum, frame):
 
 if __name__ == '__main__':
 	if args.option == 'update':
+		call(['wget', '-O', 'update.sh', 'https://raw.github.com/xuancaishaun/fyp_test/master/update.sh'])
+		call(['sudo', 'chmod', '+x', 'update.sh'])
+		if version in args:
+			call(['./update.sh', args.version])
+		else:
+			printf('Empty args.version', 'Error', RED)
+		"""
 		if args.version == 'a16' or 'a16_rudp': 
 			version = ''
 		else: 
@@ -94,7 +101,8 @@ if __name__ == '__main__':
 			out = BASE + 'lib/util/ip.py'
 			try: r = urlretrieve(url, out), printf(f, 'Update', GREEN)
                 	except: printf('Failed to update: %s'%f, 'Error', RED)
-
+		"""
+		
 	if args.option == 'stat':
 		printf('Executing statCollect.py', 'INFO', YELLOW)
 		try:
