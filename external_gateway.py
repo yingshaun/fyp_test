@@ -142,7 +142,8 @@ class external_gateway(gateway.gateway):
 							cc.add_up_worker(w)
 						w.local_senders[local].add((ip,asid))
 						try:
-							cc.add_pkt(pkt.filehash[:], p)
+							#cc.add_pkt(pkt.filehash[:], p)	
+							cc.add_pkt(pkt.file_hash, p)
 						except Exception, e:
 							#logging.exception("add_pkt!?")
 							pass
