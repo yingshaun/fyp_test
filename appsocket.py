@@ -1,5 +1,5 @@
 import gevent, gevent.socket
-import rudp
+#import rudp
 import json
 import tempfile, os
 from util.config import *
@@ -12,8 +12,8 @@ class AppSocket(object):
 		pkt = {}
 		pkt['type'] = InternalMessageType.HI
 		self._local = ('127.0.0.1', INTERNAL_PORT)
-		#self._sock = gevent.socket.socket(gevent.socket.AF_INET, gevent.socket.SOCK_DGRAM, gevent.socket.IPPROTO_UDP)
-		self._sock = rudp.rudpSocket()
+		self._sock = gevent.socket.socket(gevent.socket.AF_INET, gevent.socket.SOCK_DGRAM, gevent.socket.IPPROTO_UDP)
+		#self._sock = rudp.rudpSocket()
 		self._sock.sendto(json.dumps(pkt), self._local)
 	
 	def bind(self, asid):
