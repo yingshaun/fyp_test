@@ -106,7 +106,6 @@ outputFile = open(OUT_FILE_PATH, 'w+')
 mySndDict = readLogFile(SND_LOG_FILE, SND_JSON_FILE, 'w+')
 stat['snd_info'] = json.loads(open(SND_JSON_FILE, 'r').read())
 
-
 myRcvDict = readLogFile(RCV_LOG_FILE, RCV_JSON_FILE, 'w+')
 stat['rcv_info'] = json.loads(open(RCV_JSON_FILE, 'r').read())
 
