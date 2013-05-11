@@ -33,7 +33,7 @@ if __name__ == '__main__':
 	if args.option == 'update':
 		call(['wget', '-O', 'update.sh', 'https://raw.github.com/xuancaishaun/fyp_test/master/update.sh'])
 		call(['sudo', 'chmod', '+x', 'update.sh'])
-		if version in args:
+		if args.version != None :
 			call(['./update.sh', args.version])
 		else:
 			printf('Empty args.version', 'Error', RED)
