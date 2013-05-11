@@ -430,6 +430,6 @@ class rudpSocket(object):
 				sleep(0)
 		return recvPkt['data'], addr
 
-	def recv(self, buf_size = MAX_DATA, isBlocking = True)
+	def recv(self, buf_size = MAX_DATA, isBlocking = True):
 		data, addr = self.recvfrom(buf_size, isBlocking)
 		return data
