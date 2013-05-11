@@ -18,7 +18,7 @@ then
 	wget -O cli.py https://raw.github.com/xuancaishaun/fyp_test/master/nep2p2_a13/cli.py
 	wget -O ddM16m8r92TO.txt https://raw.github.com/xuancaishaun/fyp_test/master/nep2p2_a13/ddM16m8r92TO.txt
 
-elif [ "$1" == "a16" || "$1" == 'a16_rudp' ]
+elif [ "$1" == "a16" ] || [ "$1" == 'a16_rudp' ]
 then
 	wget -O lib/external_gateway.py https://raw.github.com/xuancaishaun/fyp_test/master/external_gateway.py
 	wget -O lib/scheduler.py https://raw.github.com/xuancaishaun/fyp_test/master/scheduler.py
