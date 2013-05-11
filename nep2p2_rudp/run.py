@@ -1,12 +1,8 @@
 from lib.util.config import *
 import lib.modules
 import logging
-
 import threading, time, signal, sys
 #import yappi
-import gevent, gevent.monkey
-
-gevent.monkey.patch_all()
 
 def bye(signum, frame):
 	print '\nBye'
