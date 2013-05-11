@@ -76,7 +76,7 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 	keys = myDict.keys()
 	for i in range(len(keys)):
 		outputFile.write('     {\n')
-		outputFile.write('           "key" : "{0}" , \n'.format('(' + keys[i][2:]))
+		outputFile.write('           "key" : "{0}" , \n'.format(keys[i]))
 		outputFile.write('           "values": [')
 		myList = myDict[keys[i]]
 		for j in range(len(myList) - 1):
