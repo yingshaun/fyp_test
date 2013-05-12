@@ -7,7 +7,7 @@ import os, sys, signal
 from urllib import urlretrieve 
 
 parser = argparse.ArgumentParser()
-parser.add_argument('option', choices = ['update', 'start', 'check','status', 'end', 'quit', 'stat'], help = "")
+parser.add_argument('option', choices = ['update', 'start', 'check','status', 'end', 'quit', 'stat', 'clean'], help = "")
 parser.add_argument('-f', '--dataFile', help = 'sender: file to send')
 parser.add_argument('-r', '--role', choices = ['s', 'c'], help = 'Role: service / client')
 parser.add_argument('-v', '--version', choices = ['a16', 'a13', 'a16_rudp'], help = 'Version: nep2p2_a13/nep2p2_a16')
@@ -30,6 +30,12 @@ def bye(signum, frame):
 	print '\nControl.py Exit'
 
 if __name__ == '__main__':
+	if args.option == 'clean':
+		call(['wget', '-O', 'clean.sh', 'https://raw.github.com/xuancaishaun/fyp_test/master/clean.sh'])
+		call(['sudo', 'chmod', '+x', 'clean.sh'])
+		call(['sudo', './clean.sh'])
+		
+
 	if args.option == 'update':
 		call(['wget', '-O', 'update.sh', 'https://raw.github.com/xuancaishaun/fyp_test/master/update.sh'])
 		call(['sudo', 'chmod', '+x', 'update.sh'])
