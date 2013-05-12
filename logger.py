@@ -54,6 +54,7 @@ class dataFlowLogger(Logger):# Scheduler.py
 
 	def logPkt(self, remote, curTime, pkts_num):
 		#curTime = float('%{0}f'.format(LOG_PRECISION)%float(curTime))
+		remote = (unicode(remote[0]), remote[1])
 		curTime = self.formatTime(curTime)
 		if curTime < self.nextTime:
 			try: self.count[remote] += pkts_num
