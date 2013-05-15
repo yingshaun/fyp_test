@@ -6,7 +6,7 @@ from util.config import *
 from util.message import *
 from util.internal_message import *
 from util.common import printf, hashFunc
-from util.logger import *
+from util.logger import * 
 #from util.cache import Cache, packetId
 #from base_worker import base_worker
 from util.bats import NIODecoder as Decoder
@@ -14,13 +14,16 @@ from util.bats import Encoder
 import modules
 import threading
 
+from util.message import MessageType
+from util.bmessage import *
+
 class app_worker(object):
 	def __init__(self, h):
 		#base_worker.__init__(self)
 		self.myhash = h
 		self.mysize = 0
 
-		#encoder and decoder are initiallized when first needed
+#encoder and decoder are initiallized when first needed
 		self.encoder = None
 		self.decoder = None
 
@@ -43,7 +46,14 @@ class app_worker(object):
 		self.num_sent = 0
 		self.logThread = None
 
-		############################################
+		##################################################
+		#send_buf: from me to others
+		#	key: asid | value: Cached Python string of the message
+		##################################################
+		self.msg = message(message.create_message(MessageType.PACKET))
+		self.send_pkt = self.msg.get_bm()
+		self.send_pkt.file_hash = h
+		self.send_buf = {}
 
 	#call by IGW
 	def init_encoder(self, filepath):
@@ -60,20 +70,35 @@ class app_worker(object):
 			self.mysize = filesize
 
 			#init the logger
-		#	self.pktLogger = Logger('log/%s/%d/%s.log'%(
-		#		modules.ip.myip,
-		#		self.mysize,
-		#		self.myhash),'a+')
-			
-			
-			self.pktLogger = Logger('log/%s/%d.log'%(
+			self.pktLogger = Logger('log/%s/%d/%s.log'%(
 				modules.ip.myip,
-				self.mysize), 'a+')
-
+				self.mysize,
+				self.myhash),'a+')
 			print 'a'
 			self.logThread = AppLogger(self)
 			print 'b'
 			self.logThread.start()
+
+	def init_send_header(self, local):
+		if local in self.send_buf:
+			return
+		local_senders = self.local_senders[local]
+		#:TODO: fixed 10 nodes for each packet no matter what
+		#if len(local_senders)>10:
+		#	local_senders = random.sample(local_senders, 9)
+		#	local_senders.append(c.remote)
+		sender_ip, sender_asid = list(self.remote_senders[local][SENDER])[0] if local in self.remote_senders and (0,0) in self.remote_senders[local] else (modules.ip.myip, local)
+		self.send_pkt.file_size = self.mysize
+		self.send_pkt.sender_addr = message.IPStringtoByte(sender_ip)
+		self.send_pkt.sender_asid = sender_asid
+		self.send_pkt.src_addr = message.IPStringtoByte(modules.ip.myip)
+		self.send_pkt.src_asid = local
+		self.send_pkt.dst_num = chr(len(local_senders))
+		dst, self.send_pkt.dst_asid = \
+			(list(t) for t in zip(*local_senders))
+		#print 'local_senders', local_senders, 'dst', dst
+		self.send_pkt.dst_addr = [message.IPStringtoByte(str(addr)) for addr in dst]
+		self.send_buf[local] = 'nem  %s'%self.msg.get_head_buf()
 
 	#call encoder to out goods
 	def generate_pkt(self):
@@ -252,7 +277,6 @@ class AppLogger(threading.Thread):
 			print 'log start'
 			while not self.stop_log.is_set():
 				printf('%s sent: %d, rcvd: %d, decoded: %d'%(time.ctime()[11:19], self.app.num_sent, self.app.num_received, self.app.decoder.getDecoded() if self.app.decoder else 0), 'APP_WORKER', RED)
-
 				self.app.pktLogger.logline("%f %d %d %d"%(
 					time.time(),
 					self.app.num_sent,

@@ -28,9 +28,11 @@ then
 	wget -O lib/app_worker.py https://raw.github.com/xuancaishaun/fyp_test/master/app_worker.py
 	wget -O lib/gateway.py https://raw.github.com/xuancaishaun/fyp_test/master/gateway.py
 	wget -O lib/appsocket.py https://raw.github.com/xuancaishaun/fyp_test/master/appsocket.py
+	wget -O lib/connection.py https://raw.github.com/xuancaishaun/fyp_test/master/connection.py
 
 	wget -O lib/util/logger.py https://raw.github.com/xuancaishaun/fyp_test/master/logger.py
 	wget -O lib/util/ip.py https://raw.github.com/xuancaishaun/fyp_test/master/ip.py
+	wget -O lib/util/bmessage.py https://raw.github.com/xuancaishaun/fyp_test/master/bmessage.py
 
 	wget -O statCollect.py https://raw.github.com/xuancaishaun/fyp_test/master/statCollect.py
 	wget -O run.py https://raw.github.com/xuancaishaun/fyp_test/master/run.py
