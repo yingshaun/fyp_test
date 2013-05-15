@@ -23,6 +23,7 @@ then
 elif [ "$1" == "a16" ] || [ "$1" == 'a16_rudp' ]
 then
 	wget -O lib/external_gateway.py https://raw.github.com/xuancaishaun/fyp_test/master/external_gateway.py
+	wget -O lib/internal_gateway.py https://raw.github.com/xuancaishaun/fyp_test/master/internal_gateway.py
 	wget -O lib/scheduler.py https://raw.github.com/xuancaishaun/fyp_test/master/scheduler.py
 	wget -O lib/app_worker.py https://raw.github.com/xuancaishaun/fyp_test/master/app_worker.py
 	wget -O lib/gateway.py https://raw.github.com/xuancaishaun/fyp_test/master/gateway.py
