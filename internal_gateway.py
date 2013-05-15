@@ -41,7 +41,7 @@ class internal_gateway(gateway.gateway):
 					next_num = 1 if next_num == 65535 else next_num + 1
 					if next_num == random_start:
 						ret_pkt['val'] = -1
-						self.sock.sendto(json.dumps(ret_pkt), ('127.0.0.1', pkt['src_port']))	# shaun
+						self.sock.sendto(json.dumps(ret_pkt), ('127.0.0.1', pkt['src_port']))
 						return
 
 				#read the file content if input is a file
@@ -69,7 +69,15 @@ class internal_gateway(gateway.gateway):
 					remote = (remote_ip, remote_asid)
 					c = modules.connection_pool.get_connection(local, remote)
 					c.add_up_worker(w)
+					print 'internal_gateway.remote', remote
 					w.local_senders[local].add(remote)
+					#modules.scheduler.schedule_connection(c)
+
+				w.init_send_header(local)
+
+				for remote_ip, remote_asid in pkt['dst_addrs'].iteritems():
+					remote = (remote_ip, remote_asid)
+					c = modules.connection_pool.get_connection(local, remote)
 					modules.scheduler.schedule_connection(c)
 
 			#if command is closing the socket
@@ -106,5 +114,5 @@ class internal_gateway(gateway.gateway):
 					del modules.connection_pool.connection[addr_info]
 
 			#finally send back the return packet
-			self.sock.sendto(json.dumps(ret_pkt), ('127.0.0.1', pkt['src_port']))	#shaun
+			self.sock.sendto(json.dumps(ret_pkt), ('127.0.0.1', pkt['src_port']))
 

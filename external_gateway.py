@@ -40,18 +40,20 @@ class external_gateway(gateway.gateway):
 		self.stop_msg = message(message.create_message(MessageType.STOP))
 		self.stop_pkt = self.stop_msg.get_bm()
 		self.stop_pkt.src_addr = message.IPStringtoByte(self.myip)
-
+	
 		self.myLogger = dataFlowLogger('rcv.log')
 		self.myLogger.start()
 
 	def __del__(self):
 		self.myLogger.stop()
 
+	#@profile
 	def process_pkt(self, msg):
 		if self.NO_PROCESS:
 			return
 		
 		pkt = msg.get_bm()
+		#print len(msg.dumps())
 		#process the packets
 		#check validity of message
 		if not MessageType.isValid(ord(pkt.msg_type)):
@@ -69,7 +71,7 @@ class external_gateway(gateway.gateway):
 			#local = pkt['dst_addrs'][self.myip]
 			local = dst_addrs[self.myip]
 		except KeyError:
-			raise Exception("Shouldn't be happening")
+			raise Exception("Couldn't find in dst_addrs")
 			local = 0
 			if 'dst_addrs' in pkt:
 				printf("Can't find self %s in dst_addrs(%s)"%(self.myip,pkt['dst_addrs']), 'process local', YELLOW)
@@ -77,16 +79,17 @@ class external_gateway(gateway.gateway):
 				printf("%s"%(pkt,), "process local", YELLOW)
 		#remote = (pkt['src_ip'], pkt['src_asid'])
 		#src = remote = message.IPBytetoString(pkt.src_addr), pkt.src_asid
+		filehash = ffi.buffer(pkt.file_hash)[0:32]
 		remote = src
 		sender = message.IPBytetoString(pkt.sender_addr), pkt.sender_asid
 		#w = modules.worker_pool.get_worker(pkt.file_hash[:]) if 'hash' in pkt else None
-		w = modules.worker_pool.get_worker(ffi.buffer(pkt.file_hash)[0:32])
+		w = modules.worker_pool.get_worker(filehash)
 		send_to_me = True if (self.myip in dst_addrs and modules.bidict.asid_exist(dst_addrs[self.myip])) else False
 		#printf("send_to_me=%d pkt_type=%d PKT=%d"%(send_to_me,pkt['type'],MessageType.PACKET), "recv", BLUE)
 
 		if ord(pkt.msg_type) == MessageType.PACKET:
 			if send_to_me == True:
-				self.myLogger.logPkt(remote, time.time(), 1) # shaun
+				self.myLogger.logPkt(remote, time.time(), 1)
 				#get the worker and init its decoder (similar to that in IGW)
 				w.init_decoder(pkt.file_size)
 				if local not in w.remote_senders:
@@ -129,29 +132,40 @@ class external_gateway(gateway.gateway):
 				if sender[0] == src[0] and \
 						sender[1] == src[1] and \
 						src[0] != self.myip:
-					pkt.src_addr = message.IPStringtoByte(self.myip)
-					pkt.src_asid = local
-					pkt.timestamp = time.time()
+					#pkt.src_addr = message.IPStringtoByte(self.myip)
+					#pkt.src_asid = local
+					#pkt.timestamp = time.time()
+
+					if local not in w.local_senders:
+						w.local_senders[local] = set()
+					old_dst_len = len(w.local_senders[local])
+					for ip,asid in dst_addrs.iteritems():
+						if ip == self.myip or ip == src[0] or ip == sender[0]:
+							continue
+						cc = modules.connection_pool.get_connection(local, (ip,asid))
+						if w not in cc.up_worker:
+							cc.add_up_worker(w)
+						w.local_senders[local].add((ip,asid))
+					if len(w.local_senders[local]) != old_dst_len:
+						w.init_send_header(local)
+
 					for ip,asid in dst_addrs.iteritems():
 						if ip == self.myip:
 							continue
 						cc = modules.connection_pool.get_connection(local, (ip,asid))
-						if local not in w.local_senders:
-							w.local_senders[local] = set()
-						if w not in cc.up_worker:
-							cc.add_up_worker(w)
-						w.local_senders[local].add((ip,asid))
 						try:
-							#cc.add_pkt(pkt.filehash[:], p)	
-							cc.add_pkt(pkt.file_hash, p)
+							#cc.add_pkt(pkt.filehash[:], p)
+							#printf("Added pkt [%s]"%filehash, "add_pkt", RED)
+							cc.add_pkt(filehash, p)
 						except Exception, e:
 							#logging.exception("add_pkt!?")
-							pass
+							print "Failed add_pkt", e
+							#pass
 						if not modules.scheduler.connection_scheduled(cc):
-							print 'schedule', local, (ip,asid)
+							#print 'schedule', local, (ip,asid)
 							modules.scheduler.schedule_connection(cc)
-						if self.FLOOD:
-							print 'no add_pkt done'
+						#if self.FLOOD:
+						#	print 'no add_pkt done'
 						#self.sock.sendto(pkt.encode(), (ip,EXTERNAL_PORT))
 						#:TODO: add back the app_worker.num_sent
 						#w.num_sent += 1
