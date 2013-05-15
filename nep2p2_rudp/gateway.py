@@ -1,7 +1,6 @@
 import logging
 import time
 import socket
-import rudp
 import json
 from util.common import printf
 from util.config import *
@@ -9,6 +8,8 @@ import threading
 #from util.message import Message
 from util.message import MessageType
 from util.bmessage import *
+import struct
+import rudp
 
 class gateway(threading.Thread):
 	#t3 = 0
@@ -40,23 +41,35 @@ class gateway(threading.Thread):
 				#	a = False
 				#self.t = time.clock() - self.start_time
 				#if pkt[:5].strip() == Message.HEAD:
-				if pkt[:5] == 'nem  ':
-					#pkt = Message.decode(pkt)
-					msg.loads(pkt[5:])
-					send_pkt.timestamp = time.time() - send_pkt.timestamp
-					self.process_pkt(msg)
-					#if pkt == None:
-					#	continue
-					#if 'timestamp' in pkt:
-					#	pkt['timestamp'] = time.time() - pkt['timestamp']
-				else:
-					#internal message
-					if self.FLOOD:
-						print 'gateway pkt', pkt, client
-					pkt = json.loads(pkt)
-					pkt['src_ip'] = client[0]
-					pkt['src_port'] = client[1]
-					self.process_pkt(pkt)
+				try:
+					h, t, p = struct.unpack('125sd1042s', pkt)
+					#print 'h[%s] t[%.6f]'%(h,t)
+					if h[:5] == 'nem  ':
+						msg.loads_struct(h[5:],time.time()-t,p)
+						self.process_pkt(msg)
+					#else:
+					#	raise struct.error()
+				except struct.error, e:
+					#print 'struct.error', e, pkt[:5]
+					if pkt[:5] == 'nem  ':
+						#pkt = Message.decode(pkt)
+						msg.loads(pkt[5:])
+						#			send_pkt.timestamp = time.time() - send_pkt.timestamp
+						msg.timestamp = time.time() - msg.timestamp
+						self.process_pkt(msg)
+						#print 'get something other than data', ord(msg._bm.msg_type)
+						#if pkt == None:
+						#	continue
+						#if 'timestamp' in pkt:
+						#	pkt['timestamp'] = time.time() - pkt['timestamp']
+					else:
+						#internal message
+						if self.FLOOD:
+							print 'gateway pkt', pkt, client
+						pkt = json.loads(pkt)
+						pkt['src_ip'] = client[0]
+						pkt['src_port'] = client[1]
+						self.process_pkt(pkt)
 				#self.t3 = (self.t3+time.clock()-t)/2 if self.t3!=0 else time.clock()-t
 			except Exception, e:
 				logging.exception("gateway!!")
