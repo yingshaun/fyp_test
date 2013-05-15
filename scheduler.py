@@ -69,7 +69,9 @@ class scheduler(threading.Thread):
 				#heappush(self.connection_heap, c)
 				c = self.connection_heap[0]
 				c.next_send_time += c.send_period #* 16# :TODO: hardcode
-				heappushpop(self.connection_heap, c)
+				#heappushpop(self.connection_heap, c)
+				heappop(self.connection_heap)
+				heappush(self.connection_heap, c)	# shaun
 
 				h, s, pkts = c.generate_pkt()
 				#:TODO: simplified needed
