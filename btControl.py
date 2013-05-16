@@ -52,7 +52,7 @@ if __name__ == "__main__":
 	if args.option == 'start':
 		# start logginr
 		tc = tt.Client('localhost', port = 9091)
-		tmp = tc.add_torrent(args.torrent)
+		tmp = tc.add_torrent(args.torrent, download_dir = '~/fyp/transmission/downloads')
 		myID = tmp.id
 		myTorrent = tc.get_torrents(myID)[0]
 		myTorrent.start()	# start downloading
