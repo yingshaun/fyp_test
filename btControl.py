@@ -1,9 +1,10 @@
-import json, argparse
+import json, argparse, time
 import transmissionrpc as tt
+from logger import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument('option', choices = ['clean', 'start', 'end'], help = "")
-parser.add_argument('-t', '--torrent', required = True, help = "Specify torrent name")
+parser.add_argument('-t', '--torrent', help = "Specify torrent name")
 args = parser.parse_args()
 
 
@@ -20,11 +21,40 @@ WHITE  = "\033[1;37m"
 def printf(msg, mark, color=NONE):
 	print '{0}[{1:^10}] {2}{3}'.format(color, mark, msg, NONE)
 
+class btLogger:
+	def __init__(self):
+		self.sndLogger = dataFlowLogger('snd.log')
+		self.rcvLogger = dataFlowLogger('rcv.log')
+		self.sndLogger.start()
+		self.rcvLogger.start()
+
+	def run(self, myID, tc):
+		while True:
+			myTorrent = tc.get_torrents(myID)[0]
+			if myTorrent.status == 'seeding': break
+			for i in myTorrent.peers:
+				print i['address'], time.time(), i['rateToClient']
+				self.rcvLogger.logPkt((i['address'], 0), time.time(), i['rateToClient'])
+				self.sndLogger.logPkt((i['address'], 0), time.time(), i['rateToPeer'])
+			time.sleep(1)
+
+	def __del__(self):
+		self.sndLogger.stop()
+		self.rcvLogger.stop()
+
 if __name__ == "__main__":
 	if args.option == 'start':
-		# start logging
+		# start logginr
 		tc = tt.Client('localhost', port = 9091)
-		pass
+		tmp = tc.add_torrent(args.torrent)
+		myID = tmp.id
+		myTorrent = tc.get_torrents(myID)[0]
+		myTorrent.start()	# start downloading
+
+		myLogger = btLogger()
+		myLogger.run(myID, tc)	# end downloading
+		myLogger.__del__()
+
 	if args.option == 'clean':
 		tc = tt.Client('localhost', port = 9091)
 		torrents = tc.get_torrents()
