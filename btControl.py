@@ -1,11 +1,11 @@
 import json, argparse, time, signal
 import transmissionrpc as tt
-import signal
+import signal, os
 from subprocess import call
 from logger import *
 
 parser = argparse.ArgumentParser()
-parser.add_argument('option', choices = ['update', 'clean', 'start', 'stat'], help = "")
+parser.add_argument('option', choices = ['update', 'clean', 'start', 'stat', 'end'], help = "")
 parser.add_argument('-t', '--torrent', help = "Specify torrent name")
 args = parser.parse_args()
 
@@ -35,9 +35,14 @@ class btLogger:
 		signal.signal(signal.SIGTERM, self.bye)
 		while True:
 			myTorrent = tc.get_torrents(myID)[0]
-		#	if myTorrent.status == 'seeding': break
+			if myTorrent.status == 'seeding':
+				printf(myTorrent.status, 'STATUS', YELLOW)
+			if myTorrent.status == 'downloading':
+				printf(myTorrent.status, 'STATUS', GREEN)
+			else:
+				printf(myTorrent.status, 'STATUS', RED)
 			for i in myTorrent.peers:
-				print i['address'], time.time(), i['rateToClient']
+			#	print i['address'], time.time(), i['rateToClient']
 				self.rcvLogger.logPkt((i['address'], 0), time.time(), i['rateToClient'])
 				self.sndLogger.logPkt((i['address'], 0), time.time(), i['rateToPeer'])
 			time.sleep(1)
@@ -58,6 +63,13 @@ if __name__ == "__main__":
 		call(['./update_bt.sh'])
 		
 	if args.option == 'start':
+		# log down self pid
+		d = {}
+		d['pid'] = os.getpid()
+		info_file = open('info.json', 'w+')
+		info_file.write(json.dumps(d))
+		info_file.close()
+
 		# start logginr
 		tc = tt.Client('localhost', port = 9091)
 		tmp = tc.add_torrent(args.torrent, download_dir = 'downloads')
@@ -91,4 +103,12 @@ if __name__ == "__main__":
 			printf('Call Failed!', 'ERROR', RED)
 		f.close()
 
-		
+	if args.option == 'end':
+		try: info = json.loads(open('info.json','r').read())
+		except: 
+			printf('No info.json', 'ERROR', RED)
+			exit(0)
+
+		if 'pid' in info and info['pid'] > 0:
+			call(['kill', str(info['pid'])])
+			printf('Logger is killed: %s'%info['pid'],'INFO',GREEN)
