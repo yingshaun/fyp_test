@@ -1,7 +1,8 @@
 import json, argparse, time, signal
 import transmissionrpc as tt
-from signal import signal
+import signal
 from subprocess import call
+from logger import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument('option', choices = ['update', 'clean', 'start', 'stat'], help = "")
@@ -30,6 +31,8 @@ class btLogger:
 		self.rcvLogger.start()
 
 	def run(self, myID, tc):
+		signal.signal(signal.SIGINT, self.bye)
+		signal.signal(signal.SIGTERM, self.bye)
 		while True:
 			myTorrent = tc.get_torrents(myID)[0]
 		#	if myTorrent.status == 'seeding': break
@@ -43,9 +46,10 @@ class btLogger:
 		self.sndLogger.stop()
 		self.rcvLogger.stop()
 		
-	def bye(signum, frame):
+	def bye(self, signum, frame):
 		print '\nBye'
 		self.__del__()
+		exit(0)
 
 if __name__ == "__main__":
 	if args.option == 'update':
