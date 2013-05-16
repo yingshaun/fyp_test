@@ -72,7 +72,7 @@ if __name__ == "__main__":
 
 		# start logginr
 		tc = tt.Client('localhost', port = 9091)
-		tmp = tc.add_torrent(args.torrent, download_dir = 'downloads')
+		tmp = tc.add_torrent(args.torrent, download_dir = '/home/cuhk_inc_01/fyp/transmission/downloads')
 		myID = tmp.id
 		myTorrent = tc.get_torrents(myID)[0]
 		myTorrent.start()	# start downloading
