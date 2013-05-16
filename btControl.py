@@ -1,7 +1,7 @@
-import json, argparse, time
+import json, argparse, time, signal
 import transmissionrpc as tt
+from singal import signal
 from subprocess import call
-from logger import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument('option', choices = ['update', 'clean', 'start', 'stat'], help = "")
@@ -32,7 +32,7 @@ class btLogger:
 	def run(self, myID, tc):
 		while True:
 			myTorrent = tc.get_torrents(myID)[0]
-			if myTorrent.status == 'seeding': break
+		#	if myTorrent.status == 'seeding': break
 			for i in myTorrent.peers:
 				print i['address'], time.time(), i['rateToClient']
 				self.rcvLogger.logPkt((i['address'], 0), time.time(), i['rateToClient'])
@@ -42,6 +42,10 @@ class btLogger:
 	def __del__(self):
 		self.sndLogger.stop()
 		self.rcvLogger.stop()
+		
+	def bye(signum, frame):
+		print '\nBye'
+		self.__del__()
 
 if __name__ == "__main__":
 	if args.option == 'update':
@@ -52,14 +56,17 @@ if __name__ == "__main__":
 	if args.option == 'start':
 		# start logginr
 		tc = tt.Client('localhost', port = 9091)
-		tmp = tc.add_torrent(args.torrent, download_dir = '~/fyp/transmission/downloads')
+		tmp = tc.add_torrent(args.torrent, download_dir = 'downloads')
 		myID = tmp.id
 		myTorrent = tc.get_torrents(myID)[0]
 		myTorrent.start()	# start downloading
 
 		myLogger = btLogger()
 		myLogger.run(myID, tc)	# end downloading
-		myLogger.__del__()
+		#myLogger.__del__()
+		
+		signal.signal(signal.SIGINT, myLogger.bye)
+		signal.signal(signal.SIGTERM, myLogger.bye)
 
 	if args.option == 'clean':
 		tc = tt.Client('localhost', port = 9091)
