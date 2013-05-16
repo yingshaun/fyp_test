@@ -38,7 +38,7 @@ class btLogger:
 			if myTorrent.status == 'seeding':
 				printf(myTorrent.status, 'STATUS', YELLOW)
 			elif myTorrent.status == 'downloading':
-				printf(myTorrent.status + ": " + myTorrent.progress, 'STATUS', GREEN)
+				printf(myTorrent.status + ": " + str(myTorrent.progress), 'STATUS', GREEN)
 			else:
 				printf(myTorrent.status, 'STATUS', RED)
 			for i in myTorrent.peers:
