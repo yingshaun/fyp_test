@@ -1,9 +1,10 @@
 import json, argparse, time
 import transmissionrpc as tt
 from logger import *
+from subprocess import call
 
 parser = argparse.ArgumentParser()
-parser.add_argument('option', choices = ['clean', 'start', 'end'], help = "")
+parser.add_argument('option', choices = ['clean', 'start', 'stat'], help = "")
 parser.add_argument('-t', '--torrent', help = "Specify torrent name")
 args = parser.parse_args()
 
@@ -62,3 +63,16 @@ if __name__ == "__main__":
 			h = i.hashString
 			tc.remove_torrent(h)
 
+	if args.option == 'stat':
+		printf('Executing statCollect.py', 'INFO', YELLOW)
+		try:
+			with open(os.devnull, "w") as f:
+			# Write the output to the electronic trash can
+				r = call(['python','statCollect.py','config.json'], stdout=f, stderr=f)
+			if r == 0: printf('Success!', 'INFO', GREEN)
+			else: printf('No such files: statCollect.py or config.json', 'ERROR', RED)
+		except: 
+			printf('Call Failed!', 'ERROR', RED)
+		f.close()
+
+		
