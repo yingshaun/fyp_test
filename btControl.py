@@ -37,7 +37,7 @@ class btLogger:
 			myTorrent = tc.get_torrents(myID)[0]
 			if myTorrent.status == 'seeding':
 				printf(myTorrent.status, 'STATUS', YELLOW)
-			if myTorrent.status == 'downloading':
+			elif myTorrent.status == 'downloading':
 				printf(myTorrent.status, 'STATUS', GREEN)
 			else:
 				printf(myTorrent.status, 'STATUS', RED)
