@@ -6,6 +6,6 @@ if [ "$1" == "-h" ]; then
 fi
 
 
-wget -O lib/util/logger.py https://raw.github.com/xuancaishaun/fyp_test/master/logger.py
-wget -O lib/util/statCollect.py https://raw.github.com/xuancaishaun/fyp_test/master/statCollect.py
+wget -O logger.py https://raw.github.com/xuancaishaun/fyp_test/master/logger.py
+wget -O statCollect.py https://raw.github.com/xuancaishaun/fyp_test/master/statCollect.py
 
