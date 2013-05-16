@@ -2,8 +2,8 @@ import json, argparse
 import transmissionrpc as tt
 
 parser = argparse.ArgumentParser()
-parser.add_argument('option', choices = ['start', 'stop'], help = "")
-parser.add_argument('-t', '--torrent', help = "Specify torrent name")
+parser.add_argument('option', choices = ['clean', 'start', 'end'], help = "")
+parser.add_argument('-t', '--torrent', required = True, help = "Specify torrent name")
 args = parser.parse_args()
 
 
@@ -23,4 +23,12 @@ def printf(msg, mark, color=NONE):
 if __name__ == "__main__":
 	if args.option == 'start':
 		# start logging
+		tc = tt.Client('localhost', port = 9091)
 		pass
+	if args.option == 'clean':
+		tc = tt.Client('localhost', port = 9091)
+		torrents = tc.get_torrents()
+		for i in torrents:
+			h = i.hashString
+			tc.remove_torrent(h)
+
