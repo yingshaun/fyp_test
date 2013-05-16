@@ -1,6 +1,7 @@
 import json, argparse, time
 import transmissionrpc as tt
 from subprocess import call
+from logger import *
 
 parser = argparse.ArgumentParser()
 parser.add_argument('option', choices = ['update', 'clean', 'start', 'stat'], help = "")
@@ -49,7 +50,6 @@ if __name__ == "__main__":
 		call(['./update_bt.sh'])
 		
 	if args.option == 'start':
-		from logger import *
 		# start logginr
 		tc = tt.Client('localhost', port = 9091)
 		tmp = tc.add_torrent(args.torrent)
