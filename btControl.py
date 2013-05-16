@@ -47,10 +47,7 @@ if __name__ == "__main__":
 	if args.option == 'update':
 		call(['wget', '-O', 'update_bt.sh', 'https://raw.github.com/xuancaishaun/fyp_test/master/update_bt.sh'])
 		call(['sudo', 'chmod', '+x', 'update_bt.sh'])
-		if args.version != None :
-			call(['./update_bt.sh', args.version])
-		else:
-			printf('Empty args.version', 'Error', RED)
+		call(['./update_bt.sh'])
 		
 	if args.option == 'start':
 		# start logginr
