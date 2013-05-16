@@ -1,6 +1,6 @@
 import json, argparse, time, signal
 import transmissionrpc as tt
-from singal import signal
+from signal import signal
 from subprocess import call
 
 parser = argparse.ArgumentParser()
