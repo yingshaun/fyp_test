@@ -49,7 +49,7 @@ class external_gateway(gateway.gateway):
 		self.myLogger.stop()
 		self.msgLogger = dataFlowLogger('msg.json')
 		d = {"controlMsgCount": self.controlMsgCount}
-		self.msgLogger.logline(json.dumps(self.controlMsgCount))
+		self.msgLogger.logline(json.dumps(d))
 		self.msgLogger.close()
 
 	#@profile
