@@ -8,23 +8,23 @@ Host s8
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
-Host s13
-	HostName planetlab-01.vt.nodes.planet-lab.org
+Host s3
+	HostName planetlab2.comp.nus.edu.sg
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
 Host s12
-	HostName planetlab2.cs.ucla.edu
+	HostName planetlab-01.vt.nodes.planet-lab.org
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
 Host s11
-	HostName planetlab01.alucloud.com
+	HostName planetlab2.cs.ucla.edu
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
 Host s10
-	HostName planetlab1.cs.uml.edu
+	HostName planetlab01.alucloud.com
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
@@ -45,11 +45,6 @@ Host s5
 
 Host s4
 	HostName plab3.eece.ksu.edu
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s3
-	HostName planetlab2.comp.nus.edu.sg
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 

@@ -1,8 +1,7 @@
 {
-	"s13": "planetlab-01.vt.nodes.planet-lab.org",
-	"s12": "planetlab2.cs.ucla.edu",
-	"s11": "planetlab01.alucloud.com",
-	"s10": "planetlab1.cs.uml.edu",
+	"s12": "planetlab-01.vt.nodes.planet-lab.org",
+	"s11": "planetlab2.cs.ucla.edu",
+	"s10": "planetlab01.alucloud.com",
 	"s9": "planetlab2.cs.uoregon.edu",
 	"s8": "planetlab6.cs.uiuc.edu",
 	"s7": "pl2.eng.monash.edu.au",
