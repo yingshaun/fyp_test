@@ -70,7 +70,7 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 		while True:
 			line = inputFile.readline()
 			if line == '': break		# EOF
-			elif line[0] == '#': continue	# Comment
+			elif line[0] == '#' or line[0] == '!': continue	# Comment
 			else:
 				line = line.split(';')
 				index = int(ff((float(line[1]) - start_time) / step_size))
