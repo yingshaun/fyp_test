@@ -43,7 +43,6 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 	step_size = ff(LOG_PRECISION)
 
 	inputFile.seek(0, 0)
-	myDict['controlMsgCount'] = 0
 	while True:
                 line = inputFile.readline()
                 if line == '': break            # EOF
@@ -62,8 +61,9 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 
 	# Initialize each list
 	for key in myDict.keys():
-		myDict[key] = list()
-		myDict[key] = [0] * (step_count + 1)
+		if key != 'controlMsgCount':
+			myDict[key] = list()
+			myDict[key] = [0] * (step_count + 1)
 
 	# Read each value
 	inputFile.seek(0, 0)
