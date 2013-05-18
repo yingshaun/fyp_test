@@ -17,4 +17,14 @@ sudo chmod +x install_cffi.sh
 sudo ./install_cffi.sh
 rm install_cffi.sh
 
+wget -O install_openssh.sh https://raw.github.com/xuancaishaun/fyp_test/master/scripts/install_openssh.sh
+sudo chmod +x install_openssh.sh
+sudo ./install_openssh.sh
+rm install_openssh.sh
+
+wget -O install_simplejson.sh https://raw.github.com/xuancaishaun/fyp_test/master/scripts/install_simplejson.sh
+sudo chmod +x install_simplejson.sh
+sudo ./install_simplejson.sh
+rm install_simplejson.sh
+
 sudo chown -R cuhk_inc_01 ~/fyp/
