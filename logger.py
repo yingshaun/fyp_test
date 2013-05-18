@@ -40,13 +40,10 @@ class dataFlowLogger(Logger):# Scheduler.py
 	def start(self):
 		self.logline('# Start of logging: ' + time.ctime())
 		self.count = dict() # {(ip, asid): count}
-		self.controlMsgCount = 0
 
 	def stop(self):
 		for key in self.count.keys():
                         self.logline('{0}; {1}; {2};'.format(key, self.prevTime, self.count[key]))
-		if self.controlMsgCount != 0:
-			self.logline('!;%d;'%self.controlMsgCount)
                 self.logline('# End of logging: ' + time.ctime())
                 self.close()
 
@@ -69,9 +66,6 @@ class dataFlowLogger(Logger):# Scheduler.py
 			self.count[remote] = pkts_num
 			self.prevTime = self.nextTime
 			self.nextTime += LOG_PRECISION
-
-	def logControlMsg(self, msg_num):	
-		self.controlMsgCount += msg_num
 
 if __name__ == "__main__":
 	l = dataFlowLogger('test.log')
