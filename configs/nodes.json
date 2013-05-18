@@ -7,17 +7,18 @@
 	"s15": "planetlab1.cs.uoregon.edu",
 	"s14": "pli2-pa-2.hpl.hp.com",
 	"s13": "planetlab1.iitkgp.ac.in",
-	"s12": "planetlab1.uta.edu",
+	"s12": "plab3.eece.ksu.edu",
+	"s11": "pl2.eng.monash.edu.au",
 	
-	"s3": "planetlab-01.vt.nodes.planet-lab.org",
+	
 	"s10": "planetlab2.cs.ucla.edu",
 	"s9": "planetlab01.alucloud.com",
 	"s8": "planetlab2.cs.uoregon.edu",
 	"s7": "planetlab6.cs.uiuc.edu",
-	"s6": "pl2.eng.monash.edu.au",
+	"s6": "planetlab1.uta.edu",
 	"s5": "planetlab4.williams.edu",
 	"s4": "planetlab2-santiago.lan.redclara.net",
-	"s11": "plab3.eece.ksu.edu",
+	"s3": "planetlab-01.vt.nodes.planet-lab.org",
 	"s2": "planet3.cs.ucsb.edu",
 	"s1": "ricepl-1.cs.rice.edu"
 }
