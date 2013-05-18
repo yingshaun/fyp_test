@@ -12,7 +12,7 @@ sudo yum install easy_install
 sudo easy_install gevent
 
 wget https://raw.github.com/xuancaishaun/fyp_test/master/control.py
-python control.py update
+python control.py update -v 'a13'
 
 cd ..
 wget https://www.dropbox.com/s/l5ebv64n9sk9cy6/nep2p2_ms3_32.tar.gz -O nep2p2_ms3.tar.gz
