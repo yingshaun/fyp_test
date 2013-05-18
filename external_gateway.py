@@ -89,7 +89,7 @@ class external_gateway(gateway.gateway):
 
 		# shaun
 		if ord(pkt.msg_type) != MessageType.PACKET:
-			self.myLogger.logControlMsg(remote, time.time(), pkt.msg_type)
+			self.myLogger.logControlMsg(1)
 
 		if ord(pkt.msg_type) == MessageType.PACKET:
 			if send_to_me == True:

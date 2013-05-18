@@ -48,7 +48,8 @@ def readLogFile(in_path, out_path, mode = 'a+'):
                 line = inputFile.readline()
                 if line == '': break            # EOF
 		elif line[0] == '!':
-			myDict['controlMsgCount'] += 1
+			line = line.split(';')
+			myDict['controlMsgCount'] = int(line[1])
                 elif line[0] == '#': 
 			continue   # Comment
                 else:
