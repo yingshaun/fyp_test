@@ -37,7 +37,7 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 	end_time = None
 	line = inputFile.readline()
 	line = inputFile.readline()
-	if line != '' and line[0] != '#':
+	if line != '' and line[0] != '#' and line[0] != '!':
 		line = line.split(';')
 		start_time = ff(line[1])
 	step_size = ff(LOG_PRECISION)
@@ -47,7 +47,7 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 	while True:
                 line = inputFile.readline()
                 if line == '': break            # EOF
-		elif line[0:3] == '#' * 3:
+		elif line[0] == '!':
 			myDict['controlMsgCount'] += 1
                 elif line[0] == '#': 
 			continue   # Comment

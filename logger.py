@@ -70,15 +70,16 @@ class dataFlowLogger(Logger):# Scheduler.py
 	def logControlMsg(self, remote, curTime, messageType):	
 		remote = (unicode(remote[0]), remote[1])
 		curTime = self.formatTime(curTime)
-		self.logline('### {0}; {1}; {2}'.format(remote, curTime, messageType))
+		self.logline('!{0}; {1}; {2};'.format(remote, curTime, messageType))
 
 if __name__ == "__main__":
 	l = dataFlowLogger('test.log')
 	l.start()
-	l.logPkt('("1.1.1.1", 3000)', time.time(), 10)
-	l.logPkt('("1.1.1.1", 3000)', time.time(), 20)
+	l.logPkt(("1.1.1.1", 3000), time.time(), 10)
+	l.logPkt(("1.1.1.1", 3000), time.time(), 20)
+	l.logControlMsg(("1.1.1.2", 3000), time.time(), 1)
 	time.sleep(1)
-	l.logPkt('("1.1.1.1", 3000)', time.time(), 30)
+	l.logPkt(("1.1.1.1", 3000), time.time(), 30)
 	time.sleep(1)
 	l.stop()
 	l.close()
