@@ -59,40 +59,40 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 	if start_time != None and end_time != None:
 		step_count = int((end_time - start_time) / step_size) + 1
 
-	# Initialize each list
-	for key in myDict.keys():
-		if key != 'controlMsgCount':
-			myDict[key] = list()
-			myDict[key] = [0] * (step_count + 1)
-
-	# Read each value
-	inputFile.seek(0, 0)
-	while True:
-		line = inputFile.readline()
-		if line == '': break		# EOF
-		elif line[0] == '#': continue	# Comment
-		else:
-			line = line.split(';')
-			index = int(ff((float(line[1]) - start_time) / step_size))
-			#print float(line[1]), ff((float(line[1]) - start_time)/step_size), index, int(line[2])
-			myDict[line[0]][index] += int(line[2])
-
-	outputFile.write('[\n')
-	keys = myDict.keys()
-	for i in range(len(keys)):
-		outputFile.write('     {\n')
-		outputFile.write('           "key" : "{0}" , \n'.format(keys[i]))
-		outputFile.write('           "values": [')
-		myList = myDict[keys[i]]
-		for j in range(len(myList) - 1):
-			outputFile.write('[{0}, {1}], '.format(ff(j * step_size), myList[j]))
-		j = len(myList) - 1
-		outputFile.write('[{0}, {1}]'.format( ff(j * step_size) , myList[j]))
-
-		outputFile.write(']\n')
-		outputFile.write('     }')
-		if i < (len(keys) - 1): outputFile.write(',\n')
-	outputFile.write('\n]\n')
+		# Initialize each list
+		for key in myDict.keys():
+			if key != 'controlMsgCount':
+				myDict[key] = list()
+				myDict[key] = [0] * (step_count + 1)
+	
+		# Read each value
+		inputFile.seek(0, 0)
+		while True:
+			line = inputFile.readline()
+			if line == '': break		# EOF
+			elif line[0] == '#': continue	# Comment
+			else:
+				line = line.split(';')
+				index = int(ff((float(line[1]) - start_time) / step_size))
+				#print float(line[1]), ff((float(line[1]) - start_time)/step_size), index, int(line[2])
+				myDict[line[0]][index] += int(line[2])
+	
+		outputFile.write('[\n')
+		keys = myDict.keys()
+		for i in range(len(keys)):
+			outputFile.write('     {\n')
+			outputFile.write('           "key" : "{0}" , \n'.format(keys[i]))
+			outputFile.write('           "values": [')
+			myList = myDict[keys[i]]
+			for j in range(len(myList) - 1):
+				outputFile.write('[{0}, {1}], '.format(ff(j * step_size), myList[j]))
+			j = len(myList) - 1
+			outputFile.write('[{0}, {1}]'.format( ff(j * step_size) , myList[j]))
+	
+			outputFile.write(']\n')
+			outputFile.write('     }')
+			if i < (len(keys) - 1): outputFile.write(',\n')
+		outputFile.write('\n]\n')
 
 	inputFile.close()
 	outputFile.close()
