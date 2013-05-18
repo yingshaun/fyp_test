@@ -27,4 +27,11 @@ sudo chmod +x install_simplejson.sh
 sudo ./install_simplejson.sh
 rm install_simplejson.sh
 
+cd ~/fyp
+mkdir transmission
+cd transmission
+mkdir downloads
+mkdir torrents
+mkdir logs
+
 sudo chown -R cuhk_inc_01 ~/fyp/
