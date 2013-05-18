@@ -1,4 +1,14 @@
 {
+	"s21": "planetlab-5.eecs.cwru.edu",
+	"s20": "planetlab5.cs.uiuc.edu",
+	"s19": "pl2.cs.yale.edu",
+	"s18": "planetlab4.postel.org",
+	"s17": "planetlab2.cs.purdue.edu",
+	"s16": "planetlab1.cs.uoregon.edu",
+	"s15": "pli2-pa-2.hpl.hp.com",
+	"s14": "planetlab1.iitkgp.ac.in",
+	"s13": "planetlab1.uta.edu",
+	
 	"s12": "planetlab-01.vt.nodes.planet-lab.org",
 	"s11": "planetlab2.cs.ucla.edu",
 	"s10": "planetlab01.alucloud.com",
