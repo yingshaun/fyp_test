@@ -67,6 +67,11 @@ class dataFlowLogger(Logger):# Scheduler.py
 			self.prevTime = self.nextTime
 			self.nextTime += LOG_PRECISION
 
+	def logControlMsg(self, remote, curTime, messageType):	
+		remote = (unicode(remote[0]), remote[1])
+		curTime = self.formatTime(curTime)
+		self.logline('### {0}; {1}; {2}'.format(remote, curTime, messageType))
+
 if __name__ == "__main__":
 	l = dataFlowLogger('test.log')
 	l.start()

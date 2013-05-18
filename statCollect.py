@@ -43,10 +43,14 @@ def readLogFile(in_path, out_path, mode = 'a+'):
 	step_size = ff(LOG_PRECISION)
 
 	inputFile.seek(0, 0)
+	myDict['controlMsgCount'] = 0
 	while True:
                 line = inputFile.readline()
                 if line == '': break            # EOF
-                elif line[0] == '#': continue   # Comment
+		elif line[0:3] == '#' * 3:
+			myDict['controlMsgCount'] += 1
+                elif line[0] == '#': 
+			continue   # Comment
                 else:
                         line = line.split(';')
 			if ff(line[1]) > end_time: end_time = ff(line[1])
@@ -121,6 +125,8 @@ for i in range(len(mySndDict.keys())):
 stat['general_info']['rcv'] = dict()
 for i in range(len(myRcvDict.keys())):
 	stat['general_info']['rcv'][myRcvDict.keys()[i]] = sum(myRcvDict[myRcvDict.keys()[i]])
+
+stat['general_info']['rcvControlMsgCount'] = myRcvDict['controlMsgCount']
 
 outputFile.write(json.dumps(stat))
 outputFile.close()

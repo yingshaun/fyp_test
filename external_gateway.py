@@ -87,6 +87,10 @@ class external_gateway(gateway.gateway):
 		send_to_me = True if (self.myip in dst_addrs and modules.bidict.asid_exist(dst_addrs[self.myip])) else False
 		#printf("send_to_me=%d pkt_type=%d PKT=%d"%(send_to_me,pkt['type'],MessageType.PACKET), "recv", BLUE)
 
+		# shaun
+		if ord(pkt.msg_type) != MessageType.PACKET:
+			self.myLogger.logControlMsg(remote, time.time(), pkt.msg_type)
+
 		if ord(pkt.msg_type) == MessageType.PACKET:
 			if send_to_me == True:
 				self.myLogger.logPkt(remote, time.time(), 1)
