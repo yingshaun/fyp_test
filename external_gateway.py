@@ -43,9 +43,14 @@ class external_gateway(gateway.gateway):
 	
 		self.myLogger = dataFlowLogger('rcv.log')
 		self.myLogger.start()
+		self.controlMsgCount = 0
 
 	def __del__(self):
 		self.myLogger.stop()
+		self.msgLogger = dataFlowLogger('msg.json')
+		d = {"controlMsgCount": self.controlMsgCount}
+		self.msgLogger.logline(json.dumps(self.controlMsgCount))
+		self.msgLogger.close()
 
 	#@profile
 	def process_pkt(self, msg):
@@ -86,6 +91,8 @@ class external_gateway(gateway.gateway):
 		w = modules.worker_pool.get_worker(filehash)
 		send_to_me = True if (self.myip in dst_addrs and modules.bidict.asid_exist(dst_addrs[self.myip])) else False
 		#printf("send_to_me=%d pkt_type=%d PKT=%d"%(send_to_me,pkt['type'],MessageType.PACKET), "recv", BLUE)
+		
+		if ord(pkt.msg_type) != MessageType.PACKET: self.controlMsgCount += 1 	# shaun
 
 		if ord(pkt.msg_type) == MessageType.PACKET:
 			if send_to_me == True:
