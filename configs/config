@@ -1,8 +1,3 @@
-Host s13
-	HostName planetlab1.cs.uml.edu
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
 Host s12
 	HostName planetlab01.alucloud.com
 	User cuhk_inc_01
