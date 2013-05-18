@@ -127,7 +127,9 @@ stat['general_info']['rcv'] = dict()
 for i in range(len(myRcvDict.keys())):
 	stat['general_info']['rcv'][myRcvDict.keys()[i]] = sum(myRcvDict[myRcvDict.keys()[i]])
 
-stat['general_info']['rcvControlMsgCount'] = myRcvDict['controlMsgCount']
-
+if 'controlMsgCount' in myRcvDict:
+	stat['general_info']['rcvControlMsgCount'] = myRcvDict['controlMsgCount']
+else:
+	stat['general_info']['rcvControlMsgCount'] = 0
 outputFile.write(json.dumps(stat))
 outputFile.close()
