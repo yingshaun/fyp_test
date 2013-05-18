@@ -1,30 +1,65 @@
-Host s12
-	HostName planetlab01.alucloud.com
+Host s9
+	HostName planetlab2.cs.uoregon.edu
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
-Host s11
-	HostName planetlab2.cs.ucla.edu
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s10
-	HostName planetlab-01.vt.nodes.planet-lab.org
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s16
-	HostName pl2.eng.monash.edu.au
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s15
+Host s8
 	HostName planetlab6.cs.uiuc.edu
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
-Host s14
-	HostName planetlab2.cs.uoregon.edu
+Host s13
+	HostName planetlab-01.vt.nodes.planet-lab.org
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s12
+	HostName planetlab2.cs.ucla.edu
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s11
+	HostName planetlab01.alucloud.com
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s10
+	HostName planetlab1.cs.uml.edu
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s7
+	HostName pl2.eng.monash.edu.au
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s6
+	HostName planetlab4.williams.edu
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s5
+	HostName planetlab2-santiago.lan.redclara.net
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s4
+	HostName plab3.eece.ksu.edu
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s3
+	HostName planetlab2.comp.nus.edu.sg
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s2
+	HostName planet3.cs.ucsb.edu
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s1
+	HostName ricepl-1.cs.rice.edu
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
