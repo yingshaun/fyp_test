@@ -24,12 +24,12 @@ Host s13
 	IdentityFile ~/.ssh/planetlab2_rsa
 
 Host s12
-	HostName planetlab1.uta.edu
+	HostName plab3.eece.ksu.edu
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
 Host s11
-	HostName planetlab-01.vt.nodes.planet-lab.org
+	HostName pl2.eng.monash.edu.au
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
@@ -59,7 +59,7 @@ Host s14
 	IdentityFile ~/.ssh/planetlab2_rsa
 
 Host s3
-	HostName plab3.eece.ksu.edu
+	HostName planetlab-01.vt.nodes.planet-lab.org
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
@@ -84,7 +84,7 @@ Host s4
 	IdentityFile ~/.ssh/planetlab2_rsa
 
 Host s6
-	HostName pl2.eng.monash.edu.au
+	HostName planetlab1.uta.edu
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
