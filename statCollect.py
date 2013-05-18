@@ -115,7 +115,7 @@ try:
 except:
 	stat['general_info'] = {}
 	
-dd = readJosnFile(MSG_LOG_FILE)
+dd = readJsonFile(MSG_LOG_FILE)
 stat['general_info']['controlMsgCount'] = dd['controlMsgCount'] if 'controlMsgCount' in dd else 0
 
 stat['general_info']['snd'] = dict()
