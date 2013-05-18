@@ -19,6 +19,7 @@ RCV_JSON_FILE = LOG_FILE_BASE + 'rcv.json'
 SND_LOG_FILE = LOG_FILE_BASE + 'snd.log'
 SND_JSON_FILE = LOG_FILE_BASE + 'snd.json'
 GNL_LOG_FILE = LOG_FILE_BASE + 'gnl.json'	# general information
+MSG_LOG_FILE = LOG_FILE_BASE + 'msg.json'
 OUT_FILE_PATH = LOG_FILE_BASE + 'stat.json'
 
 def ff(timestamp):
@@ -113,6 +114,9 @@ try:
 	stat['general_info'] = readJsonFile(GNL_LOG_FILE)
 except:
 	stat['general_info'] = {}
+	
+dd = readJosnFile(MSG_LOG_FILE)
+stat['general_info']['controlMsgCount'] = dd['controlMsgCount'] if 'controlMsgCount' in dd else 0
 
 stat['general_info']['snd'] = dict()
 for i in range(len(mySndDict.keys())):
