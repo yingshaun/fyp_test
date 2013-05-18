@@ -5,7 +5,7 @@ planetlab1.cqupt.edu.cn
 planetlab3.bupt.edu.cn
 planetlab1.otemachi.wide.ad.jp
 planetlab-2.sjtu.edu.cn
-planetlab1.eee.hku.hk
+planetlab1.eee.hku.hk       ==> dead
 planetlab1.sfc.wide.ad.jp
 planetlab2.comp.nus.edu.sg
 pnode1.pdcc-ntu.singaren.net.sg
@@ -26,7 +26,7 @@ pl02.comp.polyu.edu.hk
 planetlab2.cs.ucla.edu
 planetlab2.hust.edu.cn
 planetlab01.alucloud.com
-planetlab1.cs.uml.edu
+planetlab1.cs.uml.edu       ==> dead
 planetlab2.cs.uoregon.edu
 planetlab6.cs.uiuc.edu
 pl2.eng.monash.edu.au
@@ -37,7 +37,7 @@ pl-node-0.csl.sri.com
 osiris.planetlab.cs.umd.edu
 planetlab3.singaren.net.sg
 mtuplanetlab1.cs.mtu.edu
-planetlab7.cs.duke.edu
+planetlab7.cs.duke.edu      ==> reached
 pl2.6test.edu.cn
 planetlab1.uta.edu
 planetlab-5.eecs.cwru.edu
