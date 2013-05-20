@@ -14,6 +14,8 @@ except:
 LOG_FILE_BASE = config['log_file_base']
 LOG_PRECISION = config['log_precision']
 
+ACK_LOG_FILE = LOG_FILE_BASE + 'ack.log'
+ACK_JSON_FILE = LOG_FILE_BASE + 'ack.json'
 RCV_LOG_FILE = LOG_FILE_BASE + 'rcv.log'
 RCV_JSON_FILE = LOG_FILE_BASE + 'rcv.json'
 SND_LOG_FILE = LOG_FILE_BASE + 'snd.log'
@@ -104,6 +106,9 @@ def readJsonFile(in_path):
 stat = dict()
 outputFile = open(OUT_FILE_PATH, 'w+')
 
+myAckDict = readLogFile(ACK_LOG_FILE, ACK_JSON_FILE, 'w+')
+stat['ack_info'] = json.loads(open(ACK_JSON_FILE, 'r').read())
+
 mySndDict = readLogFile(SND_LOG_FILE, SND_JSON_FILE, 'w+')
 stat['snd_info'] = json.loads(open(SND_JSON_FILE, 'r').read())
 
@@ -125,6 +130,10 @@ for i in range(len(mySndDict.keys())):
 stat['general_info']['rcv'] = dict()
 for i in range(len(myRcvDict.keys())):
 	stat['general_info']['rcv'][myRcvDict.keys()[i]] = sum(myRcvDict[myRcvDict.keys()[i]])
+
+stat['general_info']['ack'] = dict()
+for i in range(len(myRcvDict.keys())):
+	stat['general_info']['ack'][myRcvDict.keys()[i]] = sum(myRcvDict[myAckDict.keys()[i]])
 
 outputFile.write(json.dumps(stat))
 outputFile.close()
