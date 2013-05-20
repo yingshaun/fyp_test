@@ -29,6 +29,8 @@ then
 	wget -O lib/gateway.py https://raw.github.com/xuancaishaun/fyp_test/master/gateway.py
 	wget -O lib/appsocket.py https://raw.github.com/xuancaishaun/fyp_test/master/appsocket.py
 	wget -O lib/connection.py https://raw.github.com/xuancaishaun/fyp_test/master/connection.py
+	wget -O lib/batch_acknowledger.py https://raw.github.com/xuancaishaun/fyp_test/master/batch_acknowledger.py
+	
 
 	wget -O lib/util/logger.py https://raw.github.com/xuancaishaun/fyp_test/master/logger.py
 	wget -O lib/util/ip.py https://raw.github.com/xuancaishaun/fyp_test/master/ip.py
