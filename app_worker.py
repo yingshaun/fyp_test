@@ -70,11 +70,14 @@ class app_worker(object):
 			self.start_time = time.time()
 			self.mysize = filesize
 
-			#init the logger
+			#init the logger	
+			self.pktLogger = Logger(LOG_FILE_BASE + 'decoder.log')    # shaun
+			"""
 			self.pktLogger = Logger('log/%s/%d/%s.log'%(
 				modules.ip.myip,
 				self.mysize,
 				self.myhash),'a+')
+			"""
 			print 'a'
 			self.logThread = AppLogger(self)
 			print 'b'
