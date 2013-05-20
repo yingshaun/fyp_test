@@ -1,70 +1,5 @@
-Host s2
-	HostName planet3.cs.ucsb.edu
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
 Host s9
 	HostName planetlab01.alucloud.com
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s19
-	HostName planetlab5.cs.uiuc.edu
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s18
-	HostName pl2.cs.yale.edu
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s13
-	HostName planetlab1.iitkgp.ac.in
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s12
-	HostName plab3.eece.ksu.edu
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s11
-	HostName pl2.eng.monash.edu.au
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s10
-	HostName planetlab2.cs.ucla.edu
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s17
-	HostName planetlab4.postel.org
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s16
-	HostName planetlab2.cs.purdue.edu
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s15
-	HostName planetlab1.cs.uoregon.edu
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s14
-	HostName pli2-pa-2.hpl.hp.com
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s3
-	HostName planetlab-01.vt.nodes.planet-lab.org
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s20
-	HostName planetlab-5.eecs.cwru.edu
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
@@ -73,13 +8,28 @@ Host s8
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
-Host s5
-	HostName planetlab4.williams.edu
+Host s13
+	HostName planetlab2.cs.purdue.edu
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
-Host s4
-	HostName planetlab2-santiago.lan.redclara.net
+Host s12
+	HostName planetlab4.postel.org
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s11
+	HostName planetlab4.postel.org
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s10
+	HostName pl2.cs.yale.edu
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s7
+	HostName planetlab6.cs.uiuc.edu
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
@@ -88,8 +38,28 @@ Host s6
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
-Host s7
-	HostName planetlab6.cs.uiuc.edu
+Host s5
+	HostName pl2.cs.yale.edu
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s14
+	HostName planetlab1.cs.uoregon.edu
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s3
+	HostName planetlab-01.vt.nodes.planet-lab.org
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s2
+	HostName planet3.cs.ucsb.edu
+	User cuhk_inc_01
+	IdentityFile ~/.ssh/planetlab2_rsa
+
+Host s4
+	HostName planetlab2-santiago.lan.redclara.net
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
