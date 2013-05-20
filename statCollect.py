@@ -119,9 +119,12 @@ try:
 	stat['general_info'] = readJsonFile(GNL_LOG_FILE)
 except:
 	stat['general_info'] = {}
-	
-dd = readJsonFile(MSG_LOG_FILE)
-stat['general_info']['controlMsgCount'] = dd['controlMsgCount'] if 'controlMsgCount' in dd else 0
+
+try:
+	dd = readJsonFile(MSG_LOG_FILE)
+	stat['general_info']['controlMsgCount'] = dd['controlMsgCount'] if 'controlMsgCount' in dd else 0
+except:
+	stat['general_info']['controlMsgCount'] = {}
 
 stat['general_info']['snd'] = dict()
 for i in range(len(mySndDict.keys())):
@@ -132,8 +135,8 @@ for i in range(len(myRcvDict.keys())):
 	stat['general_info']['rcv'][myRcvDict.keys()[i]] = sum(myRcvDict[myRcvDict.keys()[i]])
 
 stat['general_info']['ack'] = dict()
-for i in range(len(myRcvDict.keys())):
-	stat['general_info']['ack'][myRcvDict.keys()[i]] = sum(myRcvDict[myAckDict.keys()[i]])
+for i in range(len(myAckDict.keys())):
+	stat['general_info']['ack'][myAckDict.keys()[i]] = sum(myAckDict[myAckDict.keys()[i]])
 
 outputFile.write(json.dumps(stat))
 outputFile.close()
