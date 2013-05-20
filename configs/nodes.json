@@ -1,19 +1,16 @@
 {
-	"s20": "planetlab-5.eecs.cwru.edu",
-	"s19": "planetlab5.cs.uiuc.edu",
-	"s18": "pl2.cs.yale.edu",
-	"s17": "planetlab4.postel.org",
-	"s16": "planetlab2.cs.purdue.edu",
-	"s15": "planetlab1.cs.uoregon.edu",
-	"s14": "pli2-pa-2.hpl.hp.com",
-	"s13": "planetlab1.iitkgp.ac.in",
-	"s12": "plab3.eece.ksu.edu",
-	"s11": "pl2.eng.monash.edu.au",
-
+	"s14": "planetlab1.cs.uoregon.edu",
+	"s13": "planetlab2.cs.purdue.edu",
+	"s12": "planetlab4.postel.org",
+	"s11": "planetlab4.postel.org",
+	"s10": "pl2.cs.yale.edu", 
+	
 	"s9": "planetlab01.alucloud.com",
 	"s8": "planetlab2.cs.uoregon.edu",
 	"s7": "planetlab6.cs.uiuc.edu",
 	"s6": "planetlab1.uta.edu",
+	
+	"s5": "pl2.cs.yale.edu",
 	
 	"s4": "planetlab2-santiago.lan.redclara.net",
 	"s3": "planetlab-01.vt.nodes.planet-lab.org",
