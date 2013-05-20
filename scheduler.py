@@ -35,14 +35,15 @@ class scheduler(threading.Thread):
 		#self.SEND_BOUND = conf['scheduler_sendbound'] if 'scheduler_sendbound' in conf else 500
 		self.SLEEP_THRESHOLD = conf['scheduler_sleepthreshold'] if 'scheduler_sleepthreshold' in conf else 0
 		#self.FLOOD = conf['flood'] if 'flood' in conf else False
+		self.DST_PERIOD = conf['scheduler_dstperiod'] if 'scheduler_dstperiod' in conf else 800
 		self.count = 0
-
+	
 		self.myLogger = dataFlowLogger('snd.log')
 		self.myLogger.start()
 
 	def __del__(self):
 		self.myLogger.stop()
-	
+
 	#@profile
 	def run(self):
 		myip = modules.ip.myip
@@ -117,6 +118,11 @@ class scheduler(threading.Thread):
 				#ip_addr = (ip, 34567)
 				#print 'ip_addr', ip_addr
 
+				send_buf = w.send_buf[c.local]
+				#:TODO: O(n) for checking not in
+				if self.count%self.DST_PERIOD==0 or c.local not in w.send_local_senders or c.remote not in w.send_local_senders[c.local]:
+					send_buf = w.update_dst_send_header(c.local,c.remote)
+
 				for p in pkts:
 					#send_pkt.payload = p
 					#			msg.set_payload(p)
@@ -129,15 +135,19 @@ class scheduler(threading.Thread):
 					#ppp = "%s%17.6f%s"%(w.send_buf[c.local], time.time(), p)
 					#ppp = ''.join([w.send_buf[c.local], "%17.6f"%time.time(), p])
 					#:TODO:
-					ppp = struct.pack('125sd1042s', w.send_buf[c.local], time.time(), p)
-					modules.external_gateway.sock.sendto(ppp,ip_addr)
+					#ppp = struct.pack('125sd1042s', w.send_buf[c.local], time.time(), p)
+					ppp = struct.pack('125sd1042s', send_buf, time.time(), p)
+					try:
+						modules.external_gateway.sock.sendto(ppp,ip_addr)
+					except Exception, e:
+						if self.DEBUG:
+							print e, ip_addr
 					#pass
 
 				modules.external_gateway.node_list.updateSendTime(ip)
 				c.num_sent += len(pkts)
-				
-				tmp_remote = (ip, c.local)	# (ip, asid) by Shaun
-				self.myLogger.logPkt(tmp_remote, time.time(), len(pkts))
+
+				self.myLogger.logPkt((ip, c.local), time.time(), len(pkts))
 
 				#c.next_send_time += c.send_period
 				#heappush(self.connection_heap, c)
@@ -165,7 +175,7 @@ class scheduler(threading.Thread):
 						last_sent = c.num_sent
 						last_time = now
 			
-			sleep_period = self.connection_heap[0].next_send_time - time.time() - self.t
+			sleep_period = self.connection_heap[0].next_send_time - time.time() - self.t if len(self.connection_heap)>0 else 0
 			if sleep_period >= self.SLEEP_THRESHOLD: #TODO: adjust threshold
 				if self.DEBUG:
 					printf("sleep_period=%f"%(sleep_period), "SCHEDULER", RED)

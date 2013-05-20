@@ -6,7 +6,7 @@ from util.config import *
 from util.message import *
 from util.internal_message import *
 from util.common import printf, hashFunc
-from util.logger import * 
+from util.logger import *	# shaun 
 #from util.cache import Cache, packetId
 #from base_worker import base_worker
 from util.bats import NIODecoder as Decoder
@@ -23,7 +23,7 @@ class app_worker(object):
 		self.myhash = h
 		self.mysize = 0
 
-#encoder and decoder are initiallized when first needed
+		#encoder and decoder are initiallized when first needed
 		self.encoder = None
 		self.decoder = None
 
@@ -54,6 +54,7 @@ class app_worker(object):
 		self.send_pkt = self.msg.get_bm()
 		self.send_pkt.file_hash = h
 		self.send_buf = {}
+		self.send_local_senders = {}
 
 	#call by IGW
 	def init_encoder(self, filepath):
@@ -70,10 +71,10 @@ class app_worker(object):
 			self.mysize = filesize
 
 			#init the logger
-			self.pktLogger = Logger('log/%s/%d.log'%(
+			self.pktLogger = Logger('log/%s/%d/%s.log'%(
 				modules.ip.myip,
-				self.mysize), 'a+')	# by Shaun
-				#self.myhash),'a+')
+				self.mysize,
+				self.myhash),'a+')
 			print 'a'
 			self.logThread = AppLogger(self)
 			print 'b'
@@ -82,23 +83,29 @@ class app_worker(object):
 	def init_send_header(self, local):
 		if local in self.send_buf:
 			return
-		local_senders = self.local_senders[local]
-		#:TODO: fixed 10 nodes for each packet no matter what
-		#if len(local_senders)>10:
-		#	local_senders = random.sample(local_senders, 9)
-		#	local_senders.append(c.remote)
 		sender_ip, sender_asid = list(self.remote_senders[local][SENDER])[0] if local in self.remote_senders and (0,0) in self.remote_senders[local] else (modules.ip.myip, local)
 		self.send_pkt.file_size = self.mysize
 		self.send_pkt.sender_addr = message.IPStringtoByte(sender_ip)
 		self.send_pkt.sender_asid = sender_asid
 		self.send_pkt.src_addr = message.IPStringtoByte(modules.ip.myip)
 		self.send_pkt.src_asid = local
+		self.send_local_senders[local] = []
+		self.send_buf[local] = ''
+
+	def update_dst_send_header(self, local, remote):
+		local_senders = self.local_senders[local]
+		#:TODO: fixed 10 nodes for each packet no matter what
+		if len(local_senders)>10:
+			local_senders = random.sample(local_senders, 9)
+			local_senders.append(remote)
 		self.send_pkt.dst_num = chr(len(local_senders))
 		dst, self.send_pkt.dst_asid = \
 			(list(t) for t in zip(*local_senders))
-		#print 'local_senders', local_senders, 'dst', dst
 		self.send_pkt.dst_addr = [message.IPStringtoByte(str(addr)) for addr in dst]
+
+		self.send_local_senders[local] = local_senders
 		self.send_buf[local] = 'nem  %s'%self.msg.get_head_buf()
+		return self.send_buf[local]
 
 	#call encoder to out goods
 	def generate_pkt(self):
@@ -227,7 +234,8 @@ class app_worker(object):
 			os.mkdir('log')
 		except:
 			pass
-		'''
+
+		"""	# shaun
 		l = Logger('log/%d.log'%self.mysize)
 		l.logline('%f\n%f\n%d\n%d\n%d'%(
 			self.start_time,
@@ -236,7 +244,8 @@ class app_worker(object):
 			self.num_sent,
 			self.decoder.getDecoded(),
 		))
-		'''
+		l.close()
+		"""
 		l = Logger(LOG_FILE_BASE + 'gnl.json', 'w+')
 		l.logline('{')
 		l.logline('"start_time": %f,'%self.start_time)
@@ -247,20 +256,7 @@ class app_worker(object):
 		l.logline('"num_decoded": %d'%self.decoder.getDecoded())
 		#l.logline('"hash_value": "%s"'%self.myhash)
 		l.logline('}\n')
-		l.close()
-		"""
-		l = dataFlowLogger('gnl.json')
-		dd = dict()
-		dd['start_time'] = self.start_time
-		dd['end_time'] = self.end_time
-		dd['duration'] = self.end_time - self.start_time
-		dd['num_received'] = self.num_received
-		dd['num_sent'] = self.num_sent
-		dd['num_decoded'] = self.decoder.getDecoded()
-		dd['hash_value'] = self.myhash
-		l.logline(json.dumps(dd))
-		l.close()
-		"""
+		l.close()	# shaun
 
 class AppLogger(threading.Thread):
 	def __init__(self, app_worker):
@@ -276,7 +272,7 @@ class AppLogger(threading.Thread):
 		try:
 			print 'log start'
 			while not self.stop_log.is_set():
-				printf('%s sent: %d, rcvd: %d, decoded: %d'%(time.ctime()[11:19], self.app.num_sent, self.app.num_received, self.app.decoder.getDecoded() if self.app.decoder else 0), 'APP_WORKER', RED)
+				printf('%s sent: %d, rcvd: %d, decoded: %d'%(time.ctime()[11:19], self.app.num_sent, self.app.num_received, self.app.decoder.getDecoded() if self.app.decoder else 0), 'APP_WORKER', RED)	# shaun
 				self.app.pktLogger.logline("%f %d %d %d"%(
 					time.time(),
 					self.app.num_sent,

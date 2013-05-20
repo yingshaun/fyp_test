@@ -11,6 +11,8 @@ def bye(signum, frame):
 	print 'Rcv Log File: {0}'.format(lib.modules.external_gateway.myLogger.filepath)
 	lib.modules.scheduler.__del__()
 	print 'Snd Log File: {0}'.format(lib.modules.scheduler.myLogger.filepath)
+	lib.modules.batch_acknowledger.__del__()
+	print 'ACK Log File: {0}'.format(lib.modules.batch_acknowledger.myLogger.filepath)
 	sys.exit()
 
 if __name__ == "__main__":

@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('option', choices = ['update', 'start', 'check','status', 'end', 'quit', 'stat', 'clean'], help = "")
 parser.add_argument('-f', '--dataFile', help = 'sender: file to send')
 parser.add_argument('-r', '--role', choices = ['s', 'c'], help = 'Role: service / client')
-parser.add_argument('-v', '--version', choices = ['a16', 'a13', 'a16_rudp'], help = 'Version: nep2p2_a13/nep2p2_a16')
+parser.add_argument('-v', '--version', choices = ['a13', 'a17', 'a17_rudp'], help = 'Version: nep2p2_a13/nep2p2_a17')
 args = parser.parse_args()
 
 NONE   = "\033[m"

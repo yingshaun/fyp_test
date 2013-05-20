@@ -20,7 +20,7 @@ then
 	wget -O cli.py https://raw.github.com/xuancaishaun/fyp_test/master/nep2p2_a13/cli.py
 	wget -O ddM16m8r92TO.txt https://raw.github.com/xuancaishaun/fyp_test/master/ddM16m8r92TO.txt
 
-elif [ "$1" == "a16" ] || [ "$1" == 'a16_rudp' ]
+elif [ "$1" == "a17" ] || [ "$1" == 'a17_rudp' ]
 then
 	wget -O lib/external_gateway.py https://raw.github.com/xuancaishaun/fyp_test/master/external_gateway.py
 	wget -O lib/internal_gateway.py https://raw.github.com/xuancaishaun/fyp_test/master/internal_gateway.py
@@ -39,19 +39,19 @@ then
 	wget -O cli.py https://raw.github.com/xuancaishaun/fyp_test/master/cli.py
 	wget -O ddM16m8r92TO.txt https://raw.github.com/xuancaishaun/fyp_test/master/ddM16m8r92TO.txt
 
-	if [ "$1" == "a16_rudp" ]
+	if [ "$1" == "a17_rudp" ]
 	then
 		wget -O lib/appsocket.py https://raw.github.com/xuancaishaun/fyp_test/master/nep2p2_rudp/appsocket.py
 		wget -O lib/gateway.py https://raw.github.com/xuancaishaun/fyp_test/master/nep2p2_rudp/gateway.py
 		wget -O lib/rudp.py https://raw.github.com/xuancaishaun/fyp_test/master/nep2p2_rudp/rudp.py
 		wget -O run.py https://raw.github.com/xuancaishaun/fyp_test/master/nep2p2_rudp/run.py
 	fi
-elif [ "$1" == "a16_rudp_to_a16" ]
+elif [ "$1" == "a17_rudp_to_a17" ]
 then
 	wget -O lib/gateway.py https://raw.github.com/xuancaishaun/fyp_test/master/gateway.py
 	wget -O lib/appsocket.py https://raw.github.com/xuancaishaun/fyp_test/master/appsocket.py
 
-elif [ "$1" == "a13_to_a16" ]
+elif [ "$1" == "a13_to_a17" ]
 then
 	sudo yum install libffi
 	sudo yum install libffi-devel
