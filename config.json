@@ -1,0 +1,18 @@
+{
+	"version": "a17",
+	"config_path_base": "~/fyp/nep2p2_ms3/",
+	"log_file": "May_28_a17_test1/",
+	"file_size": "10M",
+	"num_init_peer": 1,
+	"num_peer": 4,
+	"packet_loss_rate": null,
+	"corruption_rate": null,
+	"sender": "s1",
+	"nodes": {
+		"s1": [39951, 3000],
+		"s2": [39951, 3000],
+		"s8": [39951, 3000],
+		"s9": [39951, 3000],
+		"s11": [39951, 3000]
+	}
+}
