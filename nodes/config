@@ -9,12 +9,12 @@ Host s8
 	IdentityFile ~/.ssh/planetlab2_rsa
 
 Host s13
-	HostName planetlab2.cs.purdue.edu
+	HostName planetlab1.cs.uoregon.edu
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
 Host s12
-	HostName planetlab4.postel.org
+	HostName planetlab2.cs.purdue.edu
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
@@ -43,8 +43,8 @@ Host s5
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
-Host s14
-	HostName planetlab1.cs.uoregon.edu
+Host s4
+	HostName planetlab2-santiago.lan.redclara.net
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
@@ -55,11 +55,6 @@ Host s3
 
 Host s2
 	HostName planet3.cs.ucsb.edu
-	User cuhk_inc_01
-	IdentityFile ~/.ssh/planetlab2_rsa
-
-Host s4
-	HostName planetlab2-santiago.lan.redclara.net
 	User cuhk_inc_01
 	IdentityFile ~/.ssh/planetlab2_rsa
 
