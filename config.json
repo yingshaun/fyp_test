@@ -1,7 +1,7 @@
 {
 	"version": "a17",
-	"config_path_base": "~/fyp/nep2p2_ms3/",
-	"log_file": "May_28_a17_test1/",
+	"config_path_base": "~/fyp/a17_demo/",
+	"log_file": "June_11_demo/",
 	"file_size": "10M",
 	"num_init_peer": 1,
 	"num_peer": 4,
