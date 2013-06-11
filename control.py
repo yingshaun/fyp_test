@@ -44,7 +44,7 @@ if __name__ == '__main__':
 			
 		flush('Execute : clean.sh		status: ')
 		call(['sudo', 'chmod', '+x', 'clean.sh'], stderr=f)
-		r = call(['sudo', './clean.sh'])
+		r = call(['sudo', './clean.sh'], stderr=f)
 		if r == 0: flush('Done')
 		else: flush('failed')
 		print ''
@@ -64,7 +64,7 @@ if __name__ == '__main__':
 			if r == 0: flush('Done')
 			else: flush('failed')
 			print ''
-		else: printf('Error', 'failed with update.sh', 'RED')
+		else: printf('-v --version needs to be specified', 'ERROR', RED)
 		
 	if args.option == 'stat':
 		printf('Executing statCollect.py', 'INFO', YELLOW)
