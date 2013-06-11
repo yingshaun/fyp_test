@@ -12,6 +12,7 @@ wget -O lib/connection.py https://raw.github.com/xuancaishaun/fyp_test/a17/codes
 wget -O lib/batch_acknowledger.py https://raw.github.com/xuancaishaun/fyp_test/a17/codes/batch_acknowledger.py
 wget -O lib/util/ip.py https://raw.github.com/xuancaishaun/fyp_test/a17/codes/ip.py
 wget -O lib/util/bmessage.py https://raw.github.com/xuancaishaun/fyp_test/a17/codes/bmessage.py
+wget -O lib/util/bats.py https://raw.github.com/xuancaishaun/fyp_test/a17/codes/bats.py
 
 # Part 2: extra necessary codes for testing
 wget -O lib/util/logger.py https://raw.github.com/xuancaishaun/fyp_test/a17/logger.py
