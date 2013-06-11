@@ -36,20 +36,18 @@ if __name__ == '__main__':
 	f = open(os.devnull, "w")
 
 	if args.option == 'clean':
-		if args.version != None:
-			flush('Download: clean.sh		status: ')
-			r = call(['wget', '-O', 'clean.sh', 'https://raw.github.com/xuancaishaun/fyp_test/' + args.version + '/clean.sh'], stderr=f)
-			if r == 0: flush('Done')
-			else: flush('failed')
-			print ''
+		flush('Download: clean.sh		status: ')
+		r = call(['wget', '-O', 'clean.sh', 'https://raw.github.com/xuancaishaun/fyp_test/master/scripts/clean.sh'], stderr=f)
+		if r == 0: flush('Done')
+		else: flush('failed')
+		print ''
 			
-			flush('Execute : clean.sh		status: ')
-			call(['sudo', 'chmod', '+x', 'clean.sh'], stderr=f)
-			r = call(['sudo', './clean.sh'])
-			if r == 0: flush('Done')
-			else: flush('failed')
-			print ''
-		else: printf('Error', 'failed with clean.sh', 'RED')
+		flush('Execute : clean.sh		status: ')
+		call(['sudo', 'chmod', '+x', 'clean.sh'], stderr=f)
+		r = call(['sudo', './clean.sh'])
+		if r == 0: flush('Done')
+		else: flush('failed')
+		print ''
 		
 
 	if args.option == 'update':
