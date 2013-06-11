@@ -1,16 +1,15 @@
 #!/usr/bin/env python
-import json
-import argparse
+
+import json, argparse, os, sys, signal
 from subprocess import *
 from time import sleep
-import os, sys, signal
 from urllib import urlretrieve 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('option', choices = ['update', 'start', 'check','status', 'end', 'quit', 'stat', 'clean'], help = "")
 parser.add_argument('-f', '--dataFile', help = 'sender: file to send')
 parser.add_argument('-r', '--role', choices = ['s', 'c'], help = 'Role: service / client')
-parser.add_argument('-v', '--version', choices = ['a13', 'a17', 'a17_rudp'], help = 'Version: nep2p2_a13/nep2p2_a17')
+parser.add_argument('-v', '--version', choices = ['a17'], help = 'Branch name in fyp_test.git')
 args = parser.parse_args()
 
 NONE   = "\033[m"
@@ -29,20 +28,45 @@ def printf(msg, mark, color=NONE):
 def bye(signum, frame):
 	print '\nControl.py Exit'
 
+def flush(str):
+	sys.stdout.write(str)
+	sys.stdout.flush()
+
 if __name__ == '__main__':
+	f = open(os.devnull, "w")
+
 	if args.option == 'clean':
-		call(['wget', '-O', 'clean.sh', 'https://raw.github.com/xuancaishaun/fyp_test/master/clean.sh'])
-		call(['sudo', 'chmod', '+x', 'clean.sh'])
-		call(['sudo', './clean.sh'])
+		if args.version != None:
+			flush('Download: clean.sh		status: ')
+			r = call(['wget', '-O', 'clean.sh', 'https://raw.github.com/xuancaishaun/fyp_test/' + args.version + '/clean.sh'], stderr=f)
+			if r == 0: flush('Done')
+			else: flush('failed')
+			print ''
+			
+			flush('Execute : clean.sh		status: ')
+			call(['sudo', 'chmod', '+x', 'clean.sh'], stderr=f)
+			r = call(['sudo', './clean.sh'])
+			if r == 0: flush('Done')
+			else: flush('failed')
+			print ''
+		else: printf('Error', 'failed with clean.sh', 'RED')
 		
 
 	if args.option == 'update':
-		call(['wget', '-O', 'update.sh', 'https://raw.github.com/xuancaishaun/fyp_test/master/update.sh'])
-		call(['sudo', 'chmod', '+x', 'update.sh'])
-		if args.version != None :
-			call(['./update.sh', args.version])
-		else:
-			printf('Empty args.version', 'Error', RED)
+		if args.version != None:
+			flush('Download: update.sh		status: ')
+			r = call(['wget', '-O', 'update.sh', 'https://raw.github.com/xuancaishaun/fyp_test/' + args.version + '/update.sh'], stderr=f)
+			if r == 0: flush('Done')
+			else: flush('failed')
+			print ''
+			
+			flush('Execute : update.sh		status: ')
+			call(['sudo', 'chmod', '+x', 'update.sh'], stderr=f)
+			r = call(['sudo', './update.sh'])
+			if r == 0: flush('Done')
+			else: flush('failed')
+			print ''
+		else: printf('Error', 'failed with update.sh', 'RED')
 		
 	if args.option == 'stat':
 		printf('Executing statCollect.py', 'INFO', YELLOW)
