@@ -1,5 +1,13 @@
 #!/bin/bash
 
+var=`uname -m`
+echo "This is a $var system"
+if [ "$var" == "x86_64" ]
+then wget -O libbatscore.so https://raw.github.com/xuancaishaun/fyp_test/master/libbatscore_64.so
+else wget -O libbatscore.so https://raw.github.com/xuancaishaun/fyp_test/master/libbatscore_32.so
+fi
+
+
 # Code selective deployment
 # Part 1: unnecessary if nep2p2 supports testing logging
 wget -O lib/external_gateway.py https://raw.github.com/xuancaishaun/fyp_test/a17/codes/external_gateway.py
