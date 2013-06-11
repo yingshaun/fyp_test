@@ -11,9 +11,4 @@ else
 	mkdir "$1"
 	sudo cp -r nep2p2/* "$1"
 	sudo chown -R cuhk_inc_01 "$1"
-
-	cd ../nep2p2
-	git checkout a17
-	cd ..
-	sudo cp control.py "$1"
 fi
