@@ -43,7 +43,7 @@ class batch_acknowledger(threading.Thread):
 		self.semaphore = threading.Semaphore(0)
 		self.interval = conf['batchack_interval'] if 'batchack_interval' in conf else 0.1
 		self.buffer_size = 28 #3doubles, 1int
-		self.myLogger = dataFlowLogger('ack.log')	# shaun
+		self.myLogger = dataFlowLogger('snd_ack.log')	# shaun
 		self.myLogger.start()				# shaun
 
 	def __del__(self):					# shaun

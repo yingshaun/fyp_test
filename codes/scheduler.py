@@ -38,7 +38,7 @@ class scheduler(threading.Thread):
 		self.DST_PERIOD = conf['scheduler_dstperiod'] if 'scheduler_dstperiod' in conf else 800
 		self.count = 0
 	
-		self.myLogger = dataFlowLogger('snd.log')	# shaun
+		self.myLogger = dataFlowLogger('snd_dat.log')	# shaun
 		self.myLogger.start()				# shaun
 
 	def __del__(self):					# shaun

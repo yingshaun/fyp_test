@@ -41,12 +41,15 @@ class external_gateway(gateway.gateway):
 		self.stop_pkt = self.stop_msg.get_bm()
 		self.stop_pkt.src_addr = message.IPStringtoByte(self.myip)
 	
-		self.myLogger = dataFlowLogger('rcv.log')	# shaun
+		self.myLogger = dataFlowLogger('rcv_dat.log')	# shaun
+		self.myLogger2 = dataFlowLogger('rcv_ack.log')	# shaun
 		self.myLogger.start()	# shaun
+		self.myLogger2.start()
 		self.controlMsgCount = 0	# shaun
 
 	def __del__(self):	# shaun
 		self.myLogger.stop()
+		self.myLogger2.stop()
 		self.msgLogger = dataFlowLogger('msg.json')
 		d = {"controlMsgCount": self.controlMsgCount}
 		self.msgLogger.logline(json.dumps(d))
@@ -182,6 +185,7 @@ class external_gateway(gateway.gateway):
 			#	pass
 
 		elif ord(pkt.msg_type) == MessageType.ACK:
+			self.myLogger2.logPkt(remote, time.time(), 1)	# shaun
 			#printf('%s %s'%(local,remote),"ACK", RED)
 			c = modules.connection_pool.get_connection(local, remote)
 			#p = pkt.get_payload()
