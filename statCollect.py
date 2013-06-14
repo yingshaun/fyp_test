@@ -1,6 +1,7 @@
 import json
 import argparse
 from math import floor
+from subprocess import call
 
 parser = argparse.ArgumentParser()
 parser.add_argument('config_path', help = "path of 'config.json'")
@@ -14,12 +15,14 @@ except:
 LOG_FILE_BASE = config['log_file_base']
 LOG_PRECISION = config['log_precision']
 
-ACK_LOG_FILE = LOG_FILE_BASE + 'ack.log'
-ACK_JSON_FILE = LOG_FILE_BASE + 'ack.json'
-RCV_LOG_FILE = LOG_FILE_BASE + 'rcv.log'
-RCV_JSON_FILE = LOG_FILE_BASE + 'rcv.json'
-SND_LOG_FILE = LOG_FILE_BASE + 'snd.log'
-SND_JSON_FILE = LOG_FILE_BASE + 'snd.json'
+ACK_LOG_FILE = LOG_FILE_BASE + 'snd_ack.log'
+ACK_JSON_FILE = LOG_FILE_BASE + 'snd_ack.json'
+RCV_LOG_FILE = LOG_FILE_BASE + 'rcv_dat.log'
+RCV_JSON_FILE = LOG_FILE_BASE + 'rcv_dat.json'
+SND_LOG_FILE = LOG_FILE_BASE + 'snd_dat.log'
+SND_JSON_FILE = LOG_FILE_BASE + 'snd_dat.json'
+RCVACK_LOG_FILE = LOG_FILE_BASE + 'rcv_ack.log'
+RCVACK_JSON_FILE = LOG_FILE_BASE + 'rcv_ack.json'
 GNL_LOG_FILE = LOG_FILE_BASE + 'gnl.json'	# general information
 MSG_LOG_FILE = LOG_FILE_BASE + 'msg.json'
 OUT_FILE_PATH = LOG_FILE_BASE + 'stat.json'
@@ -115,6 +118,9 @@ stat['snd_info'] = json.loads(open(SND_JSON_FILE, 'r').read())
 myRcvDict = readLogFile(RCV_LOG_FILE, RCV_JSON_FILE, 'w+')
 stat['rcv_info'] = json.loads(open(RCV_JSON_FILE, 'r').read())
 
+myRcvAckDict = readLogFile(RCVACK_LOG_FILE, RCVACK_JSON_FILE, 'w+')
+stat['rcvAck_info'] = json.loads(open(RCVACK_JSON_FILE, 'r').read())
+
 try:
 	stat['general_info'] = readJsonFile(GNL_LOG_FILE)
 except:
@@ -138,5 +144,14 @@ stat['general_info']['ack'] = dict()
 for i in range(len(myAckDict.keys())):
 	stat['general_info']['ack'][myAckDict.keys()[i]] = sum(myAckDict[myAckDict.keys()[i]])
 
+stat['general_info']['rcvAck'] = dict()
+for i in range(len(myRcvAckDict.keys())):
+	stat['general_info']['rcvAck'][myRcvAckDict.keys()[i]] = sum(myRcvAckDict[myRcvAckDict.keys()[i]])
+
 outputFile.write(json.dumps(stat))
 outputFile.close()
+
+call(['rm', ACK_JSON_FILE])
+call(['rm', SND_JSON_FILE])
+call(['rm', RCV_JSON_FILE])
+call(['rm', RCVACK_JSON_FILE])
