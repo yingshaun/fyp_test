@@ -38,10 +38,10 @@ class scheduler(threading.Thread):
 		self.DST_PERIOD = conf['scheduler_dstperiod'] if 'scheduler_dstperiod' in conf else 800
 		self.count = 0
 	
-		self.myLogger = dataFlowLogger('snd.log')
-		self.myLogger.start()
+		self.myLogger = dataFlowLogger('snd.log')	# shaun
+		self.myLogger.start()				# shaun
 
-	def __del__(self):
+	def __del__(self):					# shaun
 		self.myLogger.stop()
 
 	#@profile
@@ -147,7 +147,7 @@ class scheduler(threading.Thread):
 				modules.external_gateway.node_list.updateSendTime(ip)
 				c.num_sent += len(pkts)
 
-				self.myLogger.logPkt((ip, c.local), time.time(), len(pkts))
+				self.myLogger.logPkt((ip, c.local), time.time(), len(pkts))	# shaun
 
 				#c.next_send_time += c.send_period
 				#heappush(self.connection_heap, c)

@@ -41,11 +41,11 @@ class external_gateway(gateway.gateway):
 		self.stop_pkt = self.stop_msg.get_bm()
 		self.stop_pkt.src_addr = message.IPStringtoByte(self.myip)
 	
-		self.myLogger = dataFlowLogger('rcv.log')
-		self.myLogger.start()
-		self.controlMsgCount = 0
+		self.myLogger = dataFlowLogger('rcv.log')	# shaun
+		self.myLogger.start()	# shaun
+		self.controlMsgCount = 0	# shaun
 
-	def __del__(self):
+	def __del__(self):	# shaun
 		self.myLogger.stop()
 		self.msgLogger = dataFlowLogger('msg.json')
 		d = {"controlMsgCount": self.controlMsgCount}
@@ -96,7 +96,7 @@ class external_gateway(gateway.gateway):
 
 		if ord(pkt.msg_type) == MessageType.PACKET:
 			if send_to_me == True:
-				self.myLogger.logPkt(remote, time.time(), 1)
+				self.myLogger.logPkt(remote, time.time(), 1)	# shaun
 				#get the worker and init its decoder (similar to that in IGW)
 				w.init_decoder(pkt.file_size)
 				if local not in w.remote_senders:

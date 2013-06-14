@@ -43,11 +43,11 @@ class batch_acknowledger(threading.Thread):
 		self.semaphore = threading.Semaphore(0)
 		self.interval = conf['batchack_interval'] if 'batchack_interval' in conf else 0.1
 		self.buffer_size = 28 #3doubles, 1int
-		self.myLogger = dataFlowLogger('ack.log')
-		self.myLogger.start()
+		self.myLogger = dataFlowLogger('ack.log')	# shaun
+		self.myLogger.start()				# shaun
 
-	def __del__(self):
-		self.myLogger.stop()
+	def __del__(self):					# shaun
+		self.myLogger.stop()				# shaun
 	
 	def run(self):
 		myip = modules.ip.myip
@@ -76,7 +76,7 @@ class batch_acknowledger(threading.Thread):
 			msg.set_payload(ffi.buffer(ll[0])[:])
 			#modules.external_gateway.sock.sendto(bmessage.dumps(send_pkt), (dst[0],EXTERNAL_PORT))
 			modules.external_gateway.sock.sendto(msg.dumps(), (dst[0],EXTERNAL_PORT))
-			self.myLogger.logPkt((dst[0], dst[1]), time.time(), 1)
+			self.myLogger.logPkt((dst[0], dst[1]), time.time(), 1)	# shaun
 			#print "run delays[%d]: %.20f %.20f %.20f"%(src,ll[2][0], ll[2][1], ll[2][2])
 			ll[3][0] = 0
 			self.lock.release()
