@@ -1,0 +1,15 @@
+{
+	"version": "a17",
+	"config_path_base": "~/fyp/a17_demo/",
+	"log_file": "June_11_demo/",
+	"file_size": "1M",
+	"num_init_peer": 1,
+	"num_peer": 1,
+	"packet_loss_rate": null,
+	"corruption_rate": null,
+	"sender": "s1",
+	"nodes": {
+		"s1": [39951, 3000],
+		"s2": [39951, 3000]
+	}
+}
